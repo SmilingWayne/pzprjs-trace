@@ -11,6 +11,7 @@
 <link rel="manifest" href="./site.webmanifest">
 <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
 <link rel="stylesheet" href="./css/ui.css?<%= git.hash %>" type="text/css">
+<link rel="stylesheet" href="./css/trace.css?<%= git.hash %>&trace=1" type="text/css">
 <script type="text/javascript">
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
@@ -23,7 +24,7 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 <script type="text/javascript" src="./js/pzpr.js?<%= git.hash %>"></script>
-<script type="text/javascript" src="./js/pzpr-ui.js?<%= git.hash %>"></script>
+<script type="text/javascript" src="./js/pzpr-ui.js?<%= git.hash %>&trace=1"></script>
 <title>puzz.link player</title>
 </head>
 
@@ -109,6 +110,13 @@ if ('serviceWorker' in navigator) {
      <li data-popup="about"><span>__about__</span></li>
      <li class="link"><a target="_blank" href="https://hosted.weblate.org/projects/pzprjs/">__translate__</a></li>
      <li class="link"><a target="_blank" href="https://github.com/robx/pzprjs/issues">__issues__</a></li>
+   </menu></li>
+   <li id="menu_trace" style="display:none;"><span>__trace__</span><menu label="__trace__">
+     <li data-popup="trace_export"><span>__trace.export__</span></li>
+     <li data-popup="trace_import"><span>__trace.import__</span></li>
+     <hr>
+     <li id="menu_trace_show" data-menu-exec="trace_show"><span>__trace.show__</span></li>
+     <li id="menu_trace_real" class="check" data-menu-exec="trace_realtime"><span>__trace.realtime__</span></li>
    </menu></li>
    <div id="saveicon" style="display:none;">&#x1F4BE</div>
   </menu>
@@ -511,6 +519,21 @@ if ('serviceWorker' in navigator) {
   </div>
 </div>
 
+<div id="trace_recbar">
+  <div id="trace_recscrub">
+    <input id="trace_recpos" type="range" min="0" value="0">
+    <span id="trace_reclabel">0 / 0</span>
+  </div>
+  <div id="trace_reccontrols">
+    <button type="button" class="btn" id="trace_recback">Back</button>
+    <button type="button" class="btn" id="trace_recslow">Slower</button>
+    <button type="button" class="btn" id="trace_recplay"><span id="trace_recplay_label">Play</span><span class="trace-playsize" id="trace_recplay_play" aria-hidden="true">Play</span><span class="trace-playsize" id="trace_recplay_pause" aria-hidden="true">Pause</span></button>
+    <button type="button" class="btn" id="trace_recfast">Faster</button>
+    <button type="button" class="btn" id="trace_recfwd">Forward</button>
+  </div>
+  <span id="trace_recspeed">1x</span>
+</div>
+
 <div id="quesboard">
   <div id="divques"></div> <!-- Canvas用 -->
   <div id="pauseoverlay">
@@ -838,6 +861,52 @@ if ('serviceWorker' in navigator) {
     <button type="button" class="btn" data-button-exec="close">__close__</button>
     </form>
   </div>
+
+  <div class="popup" id="trace_load_pop">
+    <div class="titlebar">__trace.load.title__</div>
+    <form name="trace_load">
+      <p>__trace.load.body__</p>
+      <p id="trace_load_meta"></p>
+      <button type="button" class="btn btn-ok" data-button-exec="from_start">__trace.from_start__</button>
+      <button type="button" class="btn btn-ok" data-button-exec="from_here">__trace.from_here__</button>
+      <button type="button" class="btn" data-button-exec="close">__trace.close__</button>
+    </form>
+  </div>
+
+  <div class="popup">
+    <div class="titlebar">__trace.export.title__</div>
+    <form name="trace_export">
+      <span>__trace.field.name__</span>
+      <input type="text" name="name">
+      <br>
+      <span>__trace.field.note__</span>
+      <input type="text" name="note">
+      <br>
+      <span>__trace.field.marked__</span>
+      <input type="datetime-local" name="marked" step="1">
+      <br>
+      <span>__trace.field.elapsed__</span>
+      <span id="trace_elapsed"></span>
+      <br>
+      <textarea name="ta" cols="48" rows="8" readonly></textarea>
+      <br>
+      <div id="trace_status"></div>
+      <a id="trace_link" class="urlanchor" target="_blank" style="display:none;"></a>
+      <button type="button" class="btn btn-ok" data-button-exec="save">__trace.save__</button>
+      <button type="button" class="btn" data-button-exec="close">__trace.close__</button>
+    </form>
+  </div>
+
+  <div class="popup">
+    <div class="titlebar">__trace.import.title__</div>
+    <form name="trace_import">
+      <textarea name="ta" cols="48" rows="8"></textarea>
+      <br>
+      <div id="trace_import_status"></div>
+      <button type="button" class="btn btn-ok" data-button-exec="read">__trace.load__</button>
+      <button type="button" class="btn" data-button-exec="close">__trace.close__</button>
+    </form>
+  </div>
 </div>
 
 <!-- 隠し要素 -->
@@ -848,6 +917,8 @@ if ('serviceWorker' in navigator) {
   <a id="saveanchor"></a>
 </div>
 <!-- ここまで -->
+
+<script type="text/javascript" src="./trace.js?<%= git.hash %>&trace=1"></script>
 
 </body>
 </html>
