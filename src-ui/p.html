@@ -112,8 +112,10 @@ if ('serviceWorker' in navigator) {
      <li class="link"><a target="_blank" href="https://github.com/robx/pzprjs/issues">__issues__</a></li>
    </menu></li>
    <li id="menu_trace" style="display:none;"><span>__trace__</span><menu label="__trace__">
-     <li data-popup="trace_export"><span>__trace.export__</span></li>
      <li data-popup="trace_import"><span>__trace.import__</span></li>
+     <li data-popup="trace_export"><span>__trace.export__</span></li>
+     <li data-popup="state_import"><span>__state.import__</span></li>
+     <li data-popup="state_export"><span>__state.export__</span></li>
      <hr>
      <li id="menu_trace_show" data-menu-exec="trace_show"><span>__trace.show__</span></li>
      <li id="menu_trace_real" class="check" data-menu-exec="trace_realtime"><span>__trace.realtime__</span></li>
@@ -524,6 +526,7 @@ if ('serviceWorker' in navigator) {
     <input id="trace_recpos" type="range" min="0" value="0">
     <span id="trace_reclabel">0 / 0</span>
   </div>
+  <div id="trace_rectime">0 s / 0 s (0.00 s)</div>
   <div id="trace_reccontrols">
     <button type="button" class="btn" id="trace_recback">Back</button>
     <button type="button" class="btn" id="trace_recslow">Slower</button>
@@ -862,6 +865,33 @@ if ('serviceWorker' in navigator) {
     </form>
   </div>
 
+  <div class="popup">
+    <div class="titlebar">__state.import__</div>
+    <form name="state_import">
+      <p>__state.import.help__</p>
+      <textarea name="value" cols="48" rows="4"></textarea><br>
+      <button type="button" class="btn btn-ok" data-button-exec="read">__state.import__</button>
+      <button type="button" class="btn" data-button-exec="close">__trace.close__</button>
+      <div id="state_import_status" role="status"></div>
+      <details><summary>__state.diff__</summary>
+        <p>__state.diff.help__</p>
+        <textarea name="diff" cols="48" rows="8" readonly></textarea>
+      </details>
+    </form>
+  </div>
+
+  <div class="popup">
+    <div class="titlebar">__state.export__</div>
+    <form name="state_export">
+      <p>__state.export.help__</p>
+      <textarea name="value" cols="48" rows="4" readonly></textarea>
+      <p>__state.link__</p>
+      <textarea name="link" cols="48" rows="3" readonly></textarea>
+      <div id="state_export_status" role="status"></div>
+      <button type="button" class="btn" data-button-exec="close">__trace.close__</button>
+    </form>
+  </div>
+
   <div class="popup" id="trace_load_pop">
     <div class="titlebar">__trace.load.title__</div>
     <form name="trace_load">
@@ -918,6 +948,7 @@ if ('serviceWorker' in navigator) {
 </div>
 <!-- ここまで -->
 
+<script type="text/javascript" src="./state.js?<%= git.hash %>&state=1"></script>
 <script type="text/javascript" src="./trace.js?<%= git.hash %>&trace=1"></script>
 
 </body>

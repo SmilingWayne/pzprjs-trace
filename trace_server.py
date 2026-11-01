@@ -21,6 +21,7 @@ from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
 
 ID_ALPHABET = string.ascii_letters + string.digits + "_"
+ID_LENGTH = 12
 ID_RE = re.compile(r"^[A-Za-z0-9_]+$")
 
 SCHEMA = """
@@ -49,7 +50,7 @@ def connect(path):
 
 def new_id(conn):
     for _ in range(8):
-        ident = "".join(secrets.choice(ID_ALPHABET) for _ in range(8))
+        ident = "".join(secrets.choice(ID_ALPHABET) for _ in range(ID_LENGTH))
         if conn.execute("SELECT 1 FROM traces WHERE id = ?", (ident,)).fetchone() is None:
             return ident
     raise RuntimeError("id")

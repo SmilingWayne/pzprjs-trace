@@ -339,5 +339,15 @@
     "trace.pause": "Pause",
     "trace.faster": "Faster",
     "trace.forward": "Forward",
-    "trace.realtime": "Use real time"
+    "trace.realtime": "Use real time",
+    "state.import": "Import state",
+    "state.export": "Export state",
+    "state.import.help": "Paste a pzpr file or compressed state. Crosses and shading are ignored; import can be undone.",
+    "state.export.help": "Standard Slitherlink: clues and lines only. Crosses and shading are excluded.",
+    "state.link": "Share link (a nonempty trace takes precedence):",
+    "state.diff": "Show board changes",
+    "state.diff.help": "pzprjs operations applied by the most recent import:",
+    "state.imported": "Imported {n} operations.",
+    "state.error": "State error:",
+    "state.size": "File: {raw} bytes; encoded state: {encoded} characters."
 }

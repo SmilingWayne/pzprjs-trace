@@ -1,3 +1,4 @@
+/* global puzzleState */
 // Local solving trace. Playback uses puzzle.undo / puzzle.redo.
 (function() {
 	var STEP_MS = 400;
@@ -10,6 +11,7 @@
 	var fastBtn = null;
 	var slider = null;
 	var countEl = null;
+	var timeEl = null;
 	var speedEl = null;
 	var playLabel = null;
 	var bar = null;
@@ -57,17 +59,20 @@
 			search = search.slice(1);
 		}
 		var trace = "";
+		var state = "";
 		var options = [];
 		var matched;
-		while ((matched = /^(\w+)=(\w+)&(.*)$/.exec(search))) {
+		while ((matched = /^(\w+)=([\w-]*)&(.*)$/.exec(search))) {
 			if (matched[1] === "trace") {
 				trace = matched[2];
+			} else if (matched[1] === "state") {
+				state = matched[2];
 			} else {
 				options.push(matched[1] + "=" + matched[2]);
 			}
 			search = matched[3];
 		}
-		return { trace: trace, options: options, puzzle: search };
+		return { trace: trace, state: state, options: options, puzzle: search };
 	}
 
 	function puzzleHasBody() {
@@ -81,7 +86,11 @@
 
 	function shareSearch(id) {
 		var parts = splitSearch();
-		var head = ["trace=" + id].concat(parts.options);
+		var head = ["trace=" + id];
+		if (parts.state) {
+			head.push("state=" + parts.state);
+		}
+		head = head.concat(parts.options);
 		return "?" + head.join("&") + "&" + parts.puzzle;
 	}
 
@@ -173,6 +182,86 @@
 		return RATES[speedIndex];
 	}
 
+	function formatSpan(ms) {
+		var sec = Math.round(Math.max(0, ms) / 1000);
+		var days = Math.floor(sec / 86400);
+		sec -= days * 86400;
+		var hours = Math.floor(sec / 3600);
+		sec -= hours * 3600;
+		var mins = Math.floor(sec / 60);
+		sec -= mins * 60;
+		var parts = [];
+		function push(value, unit) {
+			if (!value) {
+				return;
+			}
+			var text = parts.length && value < 10 ? "0" + value : String(value);
+			parts.push(text + " " + unit);
+		}
+		push(days, "d");
+		push(hours, "h");
+		push(mins, "m");
+		if (sec || !parts.length) {
+			var text = parts.length && sec < 10 ? "0" + sec : String(sec);
+			parts.push(text + " s");
+		}
+		return parts.join(" ");
+	}
+
+	function formatStep(ms) {
+		var centi = Math.round(Math.max(0, ms) / 10);
+		var whole = Math.floor(centi / 100);
+		var frac = centi - whole * 100;
+		var days = Math.floor(whole / 86400);
+		whole -= days * 86400;
+		var hours = Math.floor(whole / 3600);
+		whole -= hours * 3600;
+		var mins = Math.floor(whole / 60);
+		var secs = whole - mins * 60;
+		var parts = [];
+		function push(value, unit) {
+			if (!value) {
+				return;
+			}
+			var text = parts.length && value < 10 ? "0" + value : String(value);
+			parts.push(text + " " + unit);
+		}
+		push(days, "d");
+		push(hours, "h");
+		push(mins, "m");
+		var secText = parts.length && secs < 10 ? "0" + secs : String(secs);
+		var fracText = frac < 10 ? "0" + frac : String(frac);
+		parts.push(secText + "." + fracText + " s");
+		return parts.join(" ");
+	}
+
+	function stepClock(op) {
+		var hist = op.history;
+		var pos = op.position;
+		var current = 0;
+		var step = 0;
+		if (pos > 0 && hist[pos - 1]) {
+			current = hist[pos - 1].time || 0;
+			var prev = pos > 1 && hist[pos - 2] ? hist[pos - 2].time || 0 : 0;
+			step = current - prev;
+		}
+		var total = 0;
+		if (hist.length > 0 && hist[hist.length - 1]) {
+			total = hist[hist.length - 1].time || 0;
+		}
+		if (step < 0) {
+			step = 0;
+		}
+		return (
+			formatSpan(current) +
+			" / " +
+			formatSpan(total) +
+			" (" +
+			formatStep(step) +
+			")"
+		);
+	}
+
 	function stepDelay(index) {
 		var base = STEP_MS;
 		if (realTime) {
@@ -207,6 +296,7 @@
 		slider.max = String(op.history.length);
 		slider.value = String(op.position);
 		countEl.textContent = op.position + " / " + op.history.length;
+		timeEl.textContent = stepClock(op);
 		speedEl.textContent = rate() + "x";
 		playLabel.textContent = playing ? t("trace.pause") : t("trace.play");
 		backBtn.disabled = op.position <= 0;
@@ -354,10 +444,7 @@
 	function onHistory() {
 		if (!driving) {
 			stopPlay();
-			if (
-				seenLength >= 0 &&
-				ui.puzzle.opemgr.history.length !== seenLength
-			) {
+			if (seenLength >= 0 && ui.puzzle.opemgr.history.length !== seenLength) {
 				mutated = true;
 			}
 		}
@@ -393,8 +480,7 @@
 
 	function centerPopup(pop) {
 		var rect = pzpr.util.getRect(pop);
-		var left =
-			(window.pageXOffset || 0) + (window.innerWidth - rect.width) / 2;
+		var left = (window.pageXOffset || 0) + (window.innerWidth - rect.width) / 2;
 		var top =
 			(window.pageYOffset || 0) + (window.innerHeight - rect.height) / 2;
 		if (left < 8) {
@@ -536,6 +622,8 @@
 			var id = splitSearch().trace;
 			if (id) {
 				loadTrace(id);
+			} else if (splitSearch().state) {
+				importState(splitSearch().state, true);
 			}
 		} else if (traceOpening) {
 			traceOpening = false;
@@ -561,6 +649,7 @@
 		fastBtn = document.getElementById("trace_recfast");
 		slider = document.getElementById("trace_recpos");
 		countEl = document.getElementById("trace_reclabel");
+		timeEl = document.getElementById("trace_rectime");
 		speedEl = document.getElementById("trace_recspeed");
 		playLabel = document.getElementById("trace_recplay_label");
 		statusEl = document.getElementById("trace_status");
@@ -659,10 +748,104 @@
 		setRealTime(!realTime);
 	};
 
+	function importState(value, automatic) {
+		var status = document.getElementById("state_import_status");
+		status.textContent = "";
+		document.state_import.diff.value = "";
+		if (automatic) {
+			document.state_import.value.value = value;
+		}
+		Promise.resolve()
+			.then(function() {
+				var input = value.trim();
+				if (!automatic && /^pzprv3\.1\r?\n/.test(input)) {
+					return input;
+				}
+				return puzzleState.decode(input, !automatic);
+			})
+			.then(function(text) {
+				var desired = puzzleState.target(ui.puzzle, text);
+				var ops = puzzleState.changes(ui.puzzle, desired);
+				document.state_import.diff.value = ops
+					.map(function(op) {
+						return op.toString();
+					})
+					.join("\n");
+				stopPlay();
+				puzzleState.apply(ui.puzzle, ops);
+				status.textContent = t("state.imported", { n: ops.length });
+				if (automatic) {
+					var rect = pzpr.util.getRect(document.getElementById("menupanel"));
+					ui.popupmgr.open("state_import", 8, rect.bottom + 8);
+				}
+			})
+			.catch(function(err) {
+				var message = t("state.error") + " " + err.message;
+				status.textContent = message;
+				if (automatic) {
+					ui.notify.alert(message);
+				}
+			});
+	}
+
+	ui.popupmgr.addpopup("state_import", {
+		formname: "state_import",
+		show: function(px, py) {
+			ui.popupmgr.popups.template.show.call(this, px, py);
+			ui.puzzle.key.enableKey = false;
+		},
+		read: function() {
+			importState(document.state_import.value.value, false);
+		}
+	});
+
+	ui.popupmgr.addpopup("state_export", {
+		formname: "state_export",
+		show: function(px, py) {
+			ui.popupmgr.popups.template.show.call(this, px, py);
+			ui.puzzle.key.enableKey = false;
+			var form = document.state_export;
+			var status = document.getElementById("state_export_status");
+			form.value.value = "";
+			form.link.value = "";
+			status.textContent = "";
+			try {
+				var text = puzzleState.exportText(ui.puzzle);
+				Promise.resolve()
+					.then(function() {
+						return puzzleState.encode(text);
+					})
+					.then(function(encoded) {
+						form.value.value = encoded;
+						var parts = splitSearch();
+						var head = [];
+						if (parts.trace) {
+							head.push("trace=" + parts.trace);
+						}
+						head.push("state=" + encoded);
+						form.link.value =
+							location.origin +
+							"/p?" +
+							head.concat(parts.options, [parts.puzzle]).join("&");
+						status.textContent = t("state.size", {
+							raw: new TextEncoder().encode(text).length,
+							encoded: encoded.length
+						});
+					})
+					.catch(function(err) {
+						status.textContent = t("state.error") + " " + err.message;
+					});
+			} catch (err) {
+				status.textContent = t("state.error") + " " + err.message;
+			}
+		}
+	});
+
 	ui.popupmgr.addpopup("trace_load", {
 		formname: "trace_load",
 		show: function(px, py) {
 			ui.popupmgr.popups.template.show.call(this, px, py);
+			ui.puzzle.key.enableKey = false;
 			fillLoadMeta();
 			centerPopup(this.pop);
 		},
@@ -683,6 +866,7 @@
 		formname: "trace_export",
 		show: function(px, py) {
 			ui.popupmgr.popups.template.show.call(this, px, py);
+			ui.puzzle.key.enableKey = false;
 			nameInput.value = "";
 			noteInput.value = "";
 			timeInput.value = stampNow();
@@ -700,6 +884,7 @@
 		formname: "trace_import",
 		show: function(px, py) {
 			ui.popupmgr.popups.template.show.call(this, px, py);
+			ui.puzzle.key.enableKey = false;
 			importStatusEl.textContent = "";
 		},
 		read: function() {

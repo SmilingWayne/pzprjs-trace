@@ -143,7 +143,7 @@
 			search = search.slice(1);
 		}
 
-		while (search.match(/^(\w+)\=(\w+)\&(.*)/)) {
+		while (search.match(/^(\w+)\=([\w-]*)\&(.*)/)) {
 			onload_option[RegExp.$1] = RegExp.$2;
 			search = RegExp.$3;
 		}
@@ -181,7 +181,7 @@
 		);
 		//Strip url to the last option. This is the "puzzle string" we want
 		url = url.substring(url.indexOf("?") + 1); //Skip to the search parameters part of the url
-		while (url.match(/^(\w+)\=(\w+)\&(.*)/)) {
+		while (url.match(/^(\w+)\=([\w-]*)\&(.*)/)) {
 			url = RegExp.$3;
 		}
 		//Add a time signifier so that we can sort and delete oldest if setting fails

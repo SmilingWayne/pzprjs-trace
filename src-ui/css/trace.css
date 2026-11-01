@@ -1,14 +1,14 @@
 #trace_recbar {
 	display: grid;
 	grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-	grid-template-rows: 16px 20px;
+	grid-template-rows: 16px 14px 20px;
 	align-items: center;
 	column-gap: 6px;
 	row-gap: 2px;
 	box-sizing: border-box;
 	width: 90%;
 	max-width: 560px;
-	height: 38px;
+	height: 54px;
 	margin: 0 auto;
 	padding: 0;
 	overflow: hidden;
@@ -34,9 +34,22 @@ div#quesboard {
 	height: 16px;
 }
 
+#trace_rectime {
+	grid-column: 1 / -1;
+	grid-row: 2;
+	min-width: 0;
+	overflow: hidden;
+	font-size: 11px;
+	line-height: 14px;
+	text-align: right;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	opacity: 0.75;
+}
+
 #trace_reccontrols {
 	grid-column: 2;
-	grid-row: 2;
+	grid-row: 3;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -102,7 +115,7 @@ div#quesboard {
 
 #trace_recspeed {
 	grid-column: 3;
-	grid-row: 2;
+	grid-row: 3;
 	justify-self: end;
 	min-width: 3.2em;
 	font-size: 11px;

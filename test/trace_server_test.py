@@ -69,7 +69,7 @@ class TraceStoreTest(unittest.TestCase):
         first = trace_server.create_trace(conn, self.payload(note="一步"))
         second = trace_server.create_trace(conn, self.payload())
         conn.close()
-        self.assertRegex(first["id"], r"^[A-Za-z0-9_]{8}$")
+        self.assertRegex(first["id"], r"^[A-Za-z0-9_]{12}$")
         self.assertNotEqual(first["id"], second["id"])
         self.assertEqual(first["name"], "")
         self.assertEqual(first["note"], "一步")
@@ -78,6 +78,20 @@ class TraceStoreTest(unittest.TestCase):
         again = trace_server.connect(self.db)
         self.assertEqual(trace_server.get_trace(again, first["id"])["puzzle"], first["puzzle"])
         self.assertIsNone(trace_server.get_trace(again, "has space"))
+        again.execute(
+            "INSERT INTO traces (id, puzzle, body, name, note, marked_at, elapsed_ms, created_at)"
+            " VALUES (?, ?, ?, '', '', ?, ?, ?)",
+            (
+                "k1CbfIrm",
+                first["puzzle"],
+                first["body"],
+                first["marked_at"],
+                first["elapsed_ms"],
+                first["created_at"],
+            ),
+        )
+        again.commit()
+        self.assertEqual(trace_server.get_trace(again, "k1CbfIrm")["body"], first["body"])
         again.close()
 
     def test_rejects_body_without_history(self):
@@ -112,6 +126,7 @@ class TraceStoreTest(unittest.TestCase):
             with urllib.request.urlopen(request) as response:
                 saved = json.loads(response.read().decode("utf-8"))
                 self.assertEqual(response.status, 201)
+                self.assertRegex(saved["id"], r"^[A-Za-z0-9_]{12}$")
             with urllib.request.urlopen(
                 "http://127.0.0.1:%s/api/traces/%s" % (port, saved["id"])
             ) as response:
