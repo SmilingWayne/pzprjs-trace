@@ -1,170 +1,170 @@
 #trace_recbar {
-	display: grid;
-	grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-	grid-template-rows: 16px 14px 20px;
-	align-items: center;
-	column-gap: 6px;
-	row-gap: 2px;
-	box-sizing: border-box;
-	width: 90%;
-	max-width: 560px;
-	height: 54px;
-	margin: 0 auto;
-	padding: 0;
-	overflow: hidden;
-	visibility: hidden;
-	pointer-events: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  grid-template-rows: 16px 14px 20px;
+  align-items: center;
+  column-gap: 6px;
+  row-gap: 2px;
+  box-sizing: border-box;
+  width: 90%;
+  max-width: 560px;
+  height: 54px;
+  margin: 0 auto;
+  padding: 0;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 #trace_recbar.on {
-	visibility: visible;
-	pointer-events: auto;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 div#quesboard {
-	margin-top: 6px;
+  margin-top: 6px;
 }
 
 #trace_recscrub {
-	grid-column: 1 / -1;
-	display: flex;
-	align-items: center;
-	gap: 6px;
-	min-width: 0;
-	height: 16px;
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  height: 16px;
 }
 
 #trace_rectime {
-	grid-column: 1 / -1;
-	grid-row: 2;
-	min-width: 0;
-	overflow: hidden;
-	font-size: 11px;
-	line-height: 14px;
-	text-align: right;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	opacity: 0.75;
+  grid-column: 1 / -1;
+  grid-row: 2;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 11px;
+  line-height: 14px;
+  text-align: right;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  opacity: 0.75;
 }
 
 #trace_reccontrols {
-	grid-column: 2;
-	grid-row: 3;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 3px;
-	min-width: 0;
-	margin: 0;
+  grid-column: 2;
+  grid-row: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-width: 0;
+  margin: 0;
 }
 
 #trace_recpos {
-	flex: 1 1 auto;
-	width: 1px;
-	min-width: 0;
-	height: 12px;
-	margin: 0;
-	padding: 0;
-	background: transparent;
-	-webkit-appearance: none;
-	appearance: none;
-	outline: none;
+  flex: 1 1 auto;
+  width: 1px;
+  min-width: 0;
+  height: 12px;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
 }
 
 #trace_recpos::-webkit-slider-runnable-track {
-	height: 3px;
-	border-radius: 2px;
-	background: #c8c8c8;
+  height: 3px;
+  border-radius: 2px;
+  background: #c8c8c8;
 }
 
 #trace_recpos::-webkit-slider-thumb {
-	-webkit-appearance: none;
-	width: 12px;
-	height: 12px;
-	margin-top: -4.5px;
-	border-radius: 50%;
-	background: #666666;
-	border: 1px solid #444444;
-	cursor: pointer;
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  margin-top: -4.5px;
+  border-radius: 50%;
+  background: #666666;
+  border: 1px solid #444444;
+  cursor: pointer;
 }
 
 #trace_recpos::-moz-range-track {
-	height: 3px;
-	border: none;
-	border-radius: 2px;
-	background: #c8c8c8;
+  height: 3px;
+  border: none;
+  border-radius: 2px;
+  background: #c8c8c8;
 }
 
 #trace_recpos::-moz-range-thumb {
-	width: 12px;
-	height: 12px;
-	border-radius: 50%;
-	background: #666666;
-	border: 1px solid #444444;
-	cursor: pointer;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #666666;
+  border: 1px solid #444444;
+  cursor: pointer;
 }
 
 #trace_reclabel {
-	flex: 0 0 auto;
-	min-width: 4.5em;
-	font-size: 11px;
-	line-height: 16px;
-	text-align: right;
-	opacity: 0.75;
+  flex: 0 0 auto;
+  min-width: 4.5em;
+  font-size: 11px;
+  line-height: 16px;
+  text-align: right;
+  opacity: 0.75;
 }
 
 #trace_recspeed {
-	grid-column: 3;
-	grid-row: 3;
-	justify-self: end;
-	min-width: 3.2em;
-	font-size: 11px;
-	line-height: 16px;
-	text-align: right;
-	opacity: 0.75;
+  grid-column: 3;
+  grid-row: 3;
+  justify-self: end;
+  min-width: 3.2em;
+  font-size: 11px;
+  line-height: 16px;
+  text-align: right;
+  opacity: 0.75;
 }
 
 #trace_recbar .btn {
-	margin: 0;
-	padding: 0 4px;
-	border-radius: 3px;
-	font-size: 11px;
-	line-height: 16px;
+  margin: 0;
+  padding: 0 4px;
+  border-radius: 3px;
+  font-size: 11px;
+  line-height: 16px;
 }
 
 #trace_recbar #trace_recplay {
-	display: inline-grid;
-	justify-items: center;
-	align-items: center;
+  display: inline-grid;
+  justify-items: center;
+  align-items: center;
 }
 
 #trace_recplay > span {
-	grid-area: 1 / 1;
+  grid-area: 1 / 1;
 }
 
 #trace_recplay .trace-playsize {
-	visibility: hidden;
+  visibility: hidden;
 }
 
 #trace_recbar button:disabled {
-	opacity: 0.4;
+  opacity: 0.4;
 }
 
 #trace_load_pop {
-	max-width: 28em;
+  max-width: 28em;
 }
 
 #trace_load_meta {
-	white-space: pre-line;
-	margin: 0.2em 0 0.6em;
+  white-space: pre-line;
+  margin: 0.2em 0 0.6em;
 }
 
 #trace_status,
 #trace_import_status {
-	min-height: 1.2em;
+  min-height: 1.2em;
 }
 
 form[name="trace_export"] input[type="text"],
 form[name="trace_export"] input[type="datetime-local"] {
-	width: 16em;
+  width: 16em;
 }
