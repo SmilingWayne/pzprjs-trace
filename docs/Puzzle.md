@@ -13,7 +13,7 @@ You can generate it by `new pzpr.Puzzle()` constructor.
             * `option.type==='player'` The puzzle can be only taken answer data.
             * `option.type==='viewer'` The puzzle can display the puzzle but reject any input.
         * `option.config:object`   Input initial config data as a object. See pzpr.Puzzle.Config section.
-        * `option.mode`            Select initial mode: `editmode` or `playmode`. Value is the same as `puzzle.setMain()`.
+        * `option.mode`            Select initial mode using the same values as `puzzle.setMode()`.
         * `option.graphic:string`  Specify graphic type. It can be `'svg'` or `'canvas'`.
         * `option.width:number` and `option.height:number` Specify the size of the canvas.
         * `option.cellsize:number` Specify the size of the canvas by the cellsize of the board.
@@ -34,7 +34,7 @@ If neither width, height nor cellsize is given, the size of given canvas element
     * `urltype:URLType` Specify URL type.
 * `puzzle.getFileData([filetype[, option]])` Return File Data of the board.
     * Return value: Generated File data.
-    * `filetype:FileType` Specify URL type. Default is `pzpr.parser.FILE_PZPR`.
+    * `filetype:FileType` Specify file type. Default is `pzpr.parser.FILE_PZPR`.
     * `option.history:boolean` If filetype is FILE_PZPR and it is true, operation history will be outputted.
     * `option.time:boolean` If filetype is FILE_PZPR, option.history and it is true, operation history and operation time (millisecond) will be outputted.
     * `option.trial:boolean` If filetype is FILE_PZPR, option.history is false and it is true in trial mode, trial mode data will be outputted.
@@ -95,7 +95,7 @@ These methods have arguments below.
 
 ## Methods for the board model
 
-* `puzzle.check([activemode])` Check if the board is modified or not.
+* `puzzle.check([activemode])` Check the board answer.
     * Return value: `CheckInfo` which contains if the check succeed or not and failure information.
         * `info.complete` `true` if the answer is correct.
         * `info.text` contains error description unless `activemode===false`.
@@ -112,9 +112,9 @@ These methods have arguments below.
 ## Methods for operation history
 
 * `puzzle.undo()` Undo an operation.
-    * Return value: `true` if it is the first operation.
+    * Return value: `true` if another undo is available afterward; `false` if none is available.
 * `puzzle.redo()` Redo an operation.
-    * Return value: `true` if it is the last operation.
+    * Return value: `true` if another redo is available afterward; `false` if none is available.
 * `puzzle.undoall()` Undo all recorded operations. No return value.
 * `puzzle.redoall()` Redo all recorded operations. No return value.
 * `puzzle.ismodified()` Check if the board is modified or not.
@@ -183,8 +183,6 @@ For details, see [list of puzzle config document](Config.md).
 |Name|Type|Default value|Description|
 |---|---|---|---|
 |`irowake`|`boolean`|`false`|Set individual color to lines|
-|`autocmp`|`boolean`|`false`|Show complete numbers apart from incompleted one automatically.|
-|`autocmp_area`|`boolean`|`false`|Paint background of completed blocks/areas automatically.|
-|`autocmp_border`|`boolean`|`false`|Paint borders between different blocks/areas automatically.|
+|`autocmp`|`boolean`|`true`|Show complete numbers apart from incompleted one automatically.|
 |`autoerr`|`boolean`|`false`|Show incomplete/wrong numbers automatically.|
 |`multierr`|`boolean`|`false`|Check multiple errors in `puzzle.check()` API.|

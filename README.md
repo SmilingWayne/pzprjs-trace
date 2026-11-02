@@ -1,6 +1,10 @@
 [![Translation status](https://hosted.weblate.org/widgets/pzprjs/en/svg-badge.svg)](https://hosted.weblate.org/engage/pzprjs/en/)
 [![Translation status](https://hosted.weblate.org/widgets/pzprjs/ja/svg-badge.svg)](https://hosted.weblate.org/engage/pzprjs/ja/)
 
+## This fork
+
+This fork adds server-backed solving recordings and database-independent answer-state URLs. See the [project purpose](docs/ProjectPropose.md), [recordings](docs/Recordings.md), and [answer states](docs/PuzzleState.md) for current behavior and local setup.
+
 ## About pzprjs
 
 pzprjs enables one to create or edit pencil puzzles like

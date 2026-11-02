@@ -65,7 +65,7 @@ This sub-obejct controls keyboard event.
 * `puzzle.key.isX:boolean` `true` if `X` key is being pressed.
 * `puzzle.key.isY:boolean` `true` if `Y` key is being pressed.
 
-## puzzle.metadata:pzpr.Metadata
+## puzzle.metadata:pzpr.MetaData
 
 ### Properties
 
@@ -79,7 +79,7 @@ This sub-obejct controls keyboard event.
 * `puzzle.metadata.update(metadata)` Update metadata of the puzzles.
 * `puzzle.metadata.getvaliddata()` Get metadata without empty properties.
 * `puzzle.metadata.reset()` Clear all metadata.
-* `puzzle.metadata.update()` Return `true` if each metadata is empty.
+* `puzzle.metadata.empty()` Return `true` if each metadata field is empty.
 
 ## Other sub-objects
 

@@ -4,7 +4,7 @@
 
 |Name|Type|Default value|Description|
 |---|---|---|---|
-|`font`|`number`|`1`|The font of the canvas.  <br> Possible value: `1: Serif, 2: Sans-serif`|
+|`font`|`number`|`1`|The font of the canvas.  <br> Possible value: `1: Sans-serif, 2: Serif`|
 |`cursor`|`boolean`|`true`|Display the cursor on the canvas|
 |`irowake`|`boolean`|`false`|Set individual color to lines|
 |`irowakeblk`|`boolean`|`false`|Set individual color to mass of shaded cells|
@@ -20,11 +20,11 @@
 
 |Name|Type|Default value|Description|
 |---|---|---|---|
-|`use`|`number`|`1`|Input method for shaded cells from mouse <br> Possible value: `1 or 2`|
+|`use`|`number`|`1` (non-touch), `2` (touch)|Input method for shaded cells from mouse <br> Possible value: `1 or 2`|
 |`use_tri`|`number`|`1`|Input method for triangles from mouse for `'Shakashaka'` <br> Possible value: `1, 2 or 3`|
 |`support_tri`|`boolean`|`true`|Enable to support inputting triangles next to two or more walls for `'Shakashaka'`|
 |`bgcolor`|`boolean`|`false`|Enable to input background color for `'Slitherlink'`|
-|`singlenum`|`boolean`|`true`|Disable to input multiple answer numbers in a room for `'Hanare-gumi'`|
+|`singlenum`|`boolean`|`true` (non-touch), `false` (touch)|Disable to input multiple answer numbers in a room for `'Hanare-gumi'`|
 |`enline`|`boolean`|`true`|Limit to input segments only between points for `'Kouchoku'`|
 |`lattice`|`boolean`|`true`|Restrict not to input segments if other points are on the lattice for `'Kouchoku'`|
 
@@ -36,7 +36,7 @@
 |`autoerr`|`boolean`|`false`|Show incomplete/wrong numbers automatically.|
 |`multierr`|`boolean`|`false`|Check multiple errors in `puzzle.check()` API.|
 |`forceallcell`|`boolean`|`false`|Force all cells to have number to get completed for `'fillomino'`|
-|`passallcell`|`boolean`|`true`|Force all cells to be passed for `'arukone'`|
+|`dontpassallcell`|`boolean`|`false`|Allow an `'arukone'` solution that does not pass through every cell|
 
 ## List of miscellaneous config
 

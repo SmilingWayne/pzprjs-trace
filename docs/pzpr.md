@@ -76,9 +76,9 @@ This object parses URL or file data to parsing information.
 * `type:FileType` Parsed File data type. See below.
 * `rows:number` The number of rows of the board.
 * `cols:number` The number of cols of the board.
-* `metadata:pzpr.Metadata` Author, source, difficulty and comment properies.
+* `metadata:pzpr.MetaData` Author, source, difficulty and comment properties.
 * `history:HistoryData` History data in the file data, available if exists.
-* `body:string` Data in the URL other than type, rows, cols and pflag.
+* `body:string or Document` Puzzle data after the header, or an XML document for `FILE_PBOX_XML`.
 * `isfile:boolean` `true`
 
 ### pzpr.parser URLType definition
