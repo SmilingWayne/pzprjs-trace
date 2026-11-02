@@ -1,5 +1,5 @@
 /* global module */
-// Canonical answer states for standard Slitherlink.
+// Canonical answer states for supported puzzle types.
 (function(root, factory) {
 	if (typeof module !== "undefined" && module.exports) {
 		module.exports = factory();
@@ -9,10 +9,39 @@
 })(this, function() {
 	var MAX_TEXT = 1024 * 1024;
 
-	function checkPuzzle(puzzle) {
-		if (puzzle.pid !== "slither" || puzzle.getConfig("slither_full")) {
-			throw Error("Only standard Slitherlink is supported.");
+	// Each field is either part of the answer or an auxiliary mark to clear.
+	// Add a puzzle only after verifying its native file format and operations.
+	var profiles = {
+		slither: {
+			name: "Slitherlink",
+			header: "pzprv3.1",
+			fields: [
+				{ group: "cell", property: "qsub", answer: false },
+				{ group: "border", property: "qsub", answer: false },
+				{ group: "border", property: "line", answer: true }
+			]
+		},
+		nurikabe: {
+			name: "Nurikabe",
+			header: "pzprv3",
+			fields: [
+				{ group: "cell", property: "qans", answer: true },
+				{ group: "cell", property: "qsub", answer: true }
+			]
 		}
+	};
+
+	function checkPuzzle(puzzle) {
+		var profile = Object.prototype.hasOwnProperty.call(profiles, puzzle.pid)
+			? profiles[puzzle.pid]
+			: null;
+		if (
+			!profile ||
+			(puzzle.pid === "slither" && puzzle.getConfig("slither_full"))
+		) {
+			throw Error("Only standard Slitherlink and Nurikabe are supported.");
+		}
+		return profile;
 	}
 
 	function clone(puzzle) {
@@ -24,19 +53,17 @@
 		return result;
 	}
 
-	function clean(puzzle, clearLines) {
-		var board = puzzle.board;
+	function clean(puzzle, clearAnswers) {
+		var profile = checkPuzzle(puzzle);
 		puzzle.opemgr.disableRecord();
-		for (var i = 0; i < board.cell.length; i++) {
-			board.cell[i].setQsub(0);
-		}
-		for (var j = 0; j < board.border.length; j++) {
-			var border = board.border[j];
-			border.setQsub(0);
-			if (clearLines) {
-				border.setLineVal(0);
+		profile.fields.forEach(function(field) {
+			if (!field.answer || clearAnswers) {
+				var pieces = puzzle.board[field.group];
+				for (var i = 0; i < pieces.length; i++) {
+					pieces[i].setdata(field.property, 0);
+				}
 			}
-		}
+		});
 		puzzle.opemgr.enableRecord();
 	}
 
@@ -62,9 +89,14 @@
 	}
 
 	function target(puzzle, text) {
-		checkPuzzle(puzzle);
-		if (text.length > MAX_TEXT || !/^pzprv3\.1\r?\nslither\r?\n/.test(text)) {
-			throw Error("Invalid standard Slitherlink state file.");
+		var profile = checkPuzzle(puzzle);
+		var header = text.split(/\r?\n/, 2);
+		if (
+			text.length > MAX_TEXT ||
+			header[0] !== profile.header ||
+			header[1] !== puzzle.pid
+		) {
+			throw Error("Invalid " + profile.name + " state file.");
 		}
 		// Check dimensions before parsing to avoid allocating a board from untrusted input.
 		var lines = text.split(/\r?\n/);
@@ -77,7 +109,7 @@
 			throw Error("Could not open the puzzle state.");
 		}
 		if (normalized(file(copy)) !== normalized(text)) {
-			throw Error("Invalid Slitherlink state file.");
+			throw Error("Invalid " + profile.name + " state file.");
 		}
 		var canonical = exportText(copy);
 		var original = clone(puzzle);
@@ -90,28 +122,26 @@
 	}
 
 	function changes(puzzle, desired) {
+		var profile = checkPuzzle(puzzle);
 		var ops = [];
-		function add(piece, property, value) {
-			if (piece[property] !== value) {
-				ops.push(
-					new puzzle.klass.ObjectOperation(
-						piece,
-						property,
-						piece[property],
-						value
-					)
-				);
+		profile.fields.forEach(function(field) {
+			var pieces = puzzle.board[field.group];
+			var targetPieces = desired.board[field.group];
+			for (var i = 0; i < pieces.length; i++) {
+				var piece = pieces[i];
+				var value = field.answer ? targetPieces[i][field.property] : 0;
+				if (piece[field.property] !== value) {
+					ops.push(
+						new puzzle.klass.ObjectOperation(
+							piece,
+							field.property,
+							piece[field.property],
+							value
+						)
+					);
+				}
 			}
-		}
-		var i;
-		for (i = 0; i < puzzle.board.cell.length; i++) {
-			add(puzzle.board.cell[i], "qsub", 0);
-		}
-		for (i = 0; i < puzzle.board.border.length; i++) {
-			var border = puzzle.board.border[i];
-			add(border, "qsub", 0);
-			add(border, "line", desired.board.border[i].line);
-		}
+		});
 		return ops;
 	}
 

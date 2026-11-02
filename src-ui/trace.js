@@ -758,7 +758,7 @@
 		Promise.resolve()
 			.then(function() {
 				var input = value.trim();
-				if (!automatic && /^pzprv3\.1\r?\n/.test(input)) {
+				if (!automatic && /^pzprv3(?:\.1)?\r?\n/.test(input)) {
 					return input;
 				}
 				return puzzleState.decode(input, !automatic);
