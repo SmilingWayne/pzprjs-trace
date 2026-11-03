@@ -3,11 +3,16 @@
 (function(root, factory) {
 	if (typeof module !== "undefined" && module.exports) {
 		var yajilin = require("./state-profiles/yajilin");
+		var shading = require("./state-profiles/shading");
 		module.exports = factory({
 			slither: require("./state-profiles/slither"),
 			nurikabe: require("./state-profiles/nurikabe"),
 			yajilin: yajilin.yajilin,
-			"yajilin-regions": yajilin["yajilin-regions"]
+			"yajilin-regions": yajilin["yajilin-regions"],
+			heyawake: shading.heyawake,
+			nonogram: shading.nonogram,
+			shimaguni: shading.shimaguni,
+			nurimisaki: shading.nurimisaki
 		});
 	} else {
 		root.puzzleState = factory(root.stateProfiles);
@@ -40,7 +45,11 @@
 		profile.fields.forEach(function(field) {
 			var pieces = puzzle.board[field.group];
 			for (var i = 0; i < pieces.length; i++) {
-				pieces[i].setdata(field.property, 0);
+				if (field.pos !== undefined) {
+					pieces[i].setdata2(field.property, field.pos, -1);
+				} else {
+					pieces[i].setdata(field.property, 0);
+				}
 			}
 		});
 		puzzle.opemgr.enableRecord();
@@ -111,13 +120,18 @@
 			var targetPieces = desired.board[field.group];
 			for (var i = 0; i < pieces.length; i++) {
 				var piece = pieces[i];
+				var current = piece[field.property];
 				var value = targetPieces[i][field.property];
-				if (piece[field.property] !== value) {
+				if (field.pos !== undefined) {
+					current = current[field.pos];
+					value = value[field.pos];
+				}
+				if (current !== value) {
 					ops.push(
 						new puzzle.klass.ObjectOperation(
 							piece,
-							field.property,
-							piece[field.property],
+							field.property + (field.pos !== undefined ? field.pos : ""),
+							current,
 							value
 						)
 					);
@@ -142,7 +156,11 @@
 			} else {
 				var piece = op.getPiece();
 				// As with native undo/redo, restore even an incorrect board.
-				piece.setdata(op.property, op.num, true);
+				if (op.pos !== null) {
+					piece.setdata2(op.property, op.pos, op.num, true);
+				} else {
+					piece.setdata(op.property, op.num, true);
+				}
 			}
 		});
 		puzzle.redraw();

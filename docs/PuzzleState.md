@@ -11,6 +11,10 @@ The uncompressed state is exactly the current board's native pzpr file as export
 | Standard Slitherlink (`slither`) | `pzprv3.1` | Lines, border crosses, cell background colors | — |
 | Nurikabe (`nurikabe`) | `pzprv3` | Black cells and non-black marks | Clue completion marks |
 | Yajilin (`yajilin`, `yajirin`) and Yajilin Regions (`yajilin-regions`, `yajirin-regions`) | `pzprv3` | Black cells, non-black marks, lines and border crosses | Clue completion marks |
+| Heyawake (`heyawake`, `heyawacky`) | `pzprv3.1` | Black cells, non-black marks, border lines and crosses | Clue completion marks |
+| Nonogram (`nonogram`) | `pzprv3` | Black cells, non-black marks, outside-clue completion marks | — |
+| Shimaguni (`shimaguni`) | `pzprv3.1` | Black cells, non-black marks, candidate numbers | Clue completion marks |
+| Nurimisaki (`nurimisaki`) | `pzprv3` | Black cells and non-black marks | Clue completion marks |
 
 Slitherlink's full-clue variant and other puzzle types are not currently supported. Yajilin's `b` display flag is supported; its `o` rule flag must match.
 
@@ -39,7 +43,7 @@ Old state links remain readable. Older Slitherlink exports omitted crosses and b
 - [`src-ui/trace.js`](../src-ui/trace.js) and [`src-ui/p.html`](../src-ui/p.html): URL handling and dialogs.
 - [`test/state/`](../test/state/) and [`test/fixtures/`](../test/fixtures/): round trips, replacement, undo/redo, matching and examples.
 
-To add a puzzle, inspect its native `FileIO`, player input and operations. Define its profile with the native file version and every player field needed to reproduce a fresh-board import, including fields that must be cleared because FileIO does not save them. Register it in `state.js`; the UI bundle includes profile files automatically. Use dedicated handling if a puzzle cannot be represented by scalar fields with zero defaults. Test native export equality, empty and partial states, supported marks, clearing existing and opposite marks, undo/redo, foreign clues and rules, and compressed round trips.
+To add a puzzle, inspect its native `FileIO`, player input and operations. Define its profile with the native file version and every player field needed to reproduce a fresh-board import, including fields that must be cleared because FileIO does not save them. Register it in `state.js`; the UI bundle includes profile files automatically. The shared logic supports zero-default scalar fields and Shimaguni's candidate-number slots (default −1); use dedicated handling for other cases. Test native export equality, empty and partial states, supported marks, clearing existing and opposite marks, undo/redo, foreign clues and rules, and compressed round trips.
 
 From the repository root, with Node.js 24 or newer:
 
