@@ -69,6 +69,10 @@ module.exports = function(grunt){
         banner: banner_full,
         process: true,
 	  },
+      stateProfiles: {
+        src: ['src-ui/state-profiles/*.js'],
+        dest: 'dist/state-profiles.js'
+      },
       pzpr: {
         options: {
           sourceMap: !PRODUCTION
@@ -152,7 +156,7 @@ module.exports = function(grunt){
   grunt.registerTask('release', ['build']);
   grunt.registerTask('build',        ['build:pzpr', 'build:variety', 'build:samples', 'build:ui']);
   grunt.registerTask('build:pzpr',   ['concat:pzpr', 'uglify:pzpr']);
-  grunt.registerTask('build:ui',     ['copy:ui', 'concat:ui', 'uglify:ui']);
+  grunt.registerTask('build:ui',     ['copy:ui', 'concat:stateProfiles', 'concat:ui', 'uglify:ui']);
   grunt.registerTask('build:variety',['uglify:variety']);
   grunt.registerTask('build:samples',['concat:samples', 'uglify:samples']);
 };

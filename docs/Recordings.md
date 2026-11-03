@@ -29,7 +29,7 @@ Open `http://127.0.0.1:8765/`. The server accepts `--host`, `--port`, `--dist`, 
 
 ```sh
 npx mocha test/trace_replay_test.js
-python3 -m unittest test.trace_server_test
+python3 test/trace_server_test.py
 ```
 
 The JavaScript test reads the built `dist/js/pzpr.js`, so rebuild after core changes. One server test reads `../puzzlekit-dataset/puzzlink_crawlers/logs/merged_puzzles.csv` from the workspace.

@@ -1,45 +1,26 @@
-/* global module */
-// Canonical answer states for supported puzzle types.
+/* global module, require */
+// Native puzzle states for supported puzzle types.
 (function(root, factory) {
 	if (typeof module !== "undefined" && module.exports) {
-		module.exports = factory();
+		var yajilin = require("./state-profiles/yajilin");
+		module.exports = factory({
+			slither: require("./state-profiles/slither"),
+			nurikabe: require("./state-profiles/nurikabe"),
+			yajilin: yajilin.yajilin,
+			"yajilin-regions": yajilin["yajilin-regions"]
+		});
 	} else {
-		root.puzzleState = factory();
+		root.puzzleState = factory(root.stateProfiles);
 	}
-})(this, function() {
+})(this, function(profiles) {
 	var MAX_TEXT = 1024 * 1024;
-
-	// Each field is either part of the answer or an auxiliary mark to clear.
-	// Add a puzzle only after verifying its native file format and operations.
-	var profiles = {
-		slither: {
-			name: "Slitherlink",
-			header: "pzprv3.1",
-			fields: [
-				{ group: "cell", property: "qsub", answer: false },
-				{ group: "border", property: "qsub", answer: false },
-				{ group: "border", property: "line", answer: true }
-			]
-		},
-		nurikabe: {
-			name: "Nurikabe",
-			header: "pzprv3",
-			fields: [
-				{ group: "cell", property: "qans", answer: true },
-				{ group: "cell", property: "qsub", answer: true }
-			]
-		}
-	};
 
 	function checkPuzzle(puzzle) {
 		var profile = Object.prototype.hasOwnProperty.call(profiles, puzzle.pid)
 			? profiles[puzzle.pid]
 			: null;
-		if (
-			!profile ||
-			(puzzle.pid === "slither" && puzzle.getConfig("slither_full"))
-		) {
-			throw Error("Only standard Slitherlink and Nurikabe are supported.");
+		if (!profile || (profile.supported && !profile.supported(puzzle))) {
+			throw Error("State is not supported for this puzzle or variant.");
 		}
 		return profile;
 	}
@@ -53,15 +34,13 @@
 		return result;
 	}
 
-	function clean(puzzle, clearAnswers) {
+	function clean(puzzle) {
 		var profile = checkPuzzle(puzzle);
 		puzzle.opemgr.disableRecord();
 		profile.fields.forEach(function(field) {
-			if (!field.answer || clearAnswers) {
-				var pieces = puzzle.board[field.group];
-				for (var i = 0; i < pieces.length; i++) {
-					pieces[i].setdata(field.property, 0);
-				}
+			var pieces = puzzle.board[field.group];
+			for (var i = 0; i < pieces.length; i++) {
+				pieces[i].setdata(field.property, 0);
 			}
 		});
 		puzzle.opemgr.enableRecord();
@@ -83,9 +62,7 @@
 
 	function exportText(puzzle) {
 		checkPuzzle(puzzle);
-		var copy = clone(puzzle);
-		clean(copy, false);
-		return file(copy);
+		return file(puzzle);
 	}
 
 	function target(puzzle, text) {
@@ -111,25 +88,30 @@
 		if (normalized(file(copy)) !== normalized(text)) {
 			throw Error("Invalid " + profile.name + " state file.");
 		}
-		var canonical = exportText(copy);
 		var original = clone(puzzle);
-		clean(original, true);
-		clean(copy, true);
-		if (normalized(file(original)) !== normalized(file(copy))) {
+		var blank = clone(copy);
+		clean(original);
+		clean(blank);
+		if (normalized(file(original)) !== normalized(file(blank))) {
 			throw Error("The state belongs to a different puzzle.");
 		}
-		return new puzzle.pzpr.Puzzle({ type: "player" }).open(canonical);
+		return copy;
 	}
 
 	function changes(puzzle, desired) {
 		var profile = checkPuzzle(puzzle);
 		var ops = [];
+		if (puzzle.opemgr.trialpos.length) {
+			ops.push(
+				new puzzle.klass.TrialFinalizeOperation(puzzle.opemgr.trialpos.slice())
+			);
+		}
 		profile.fields.forEach(function(field) {
 			var pieces = puzzle.board[field.group];
 			var targetPieces = desired.board[field.group];
 			for (var i = 0; i < pieces.length; i++) {
 				var piece = pieces[i];
-				var value = field.answer ? targetPieces[i][field.property] : 0;
+				var value = targetPieces[i][field.property];
 				if (piece[field.property] !== value) {
 					ops.push(
 						new puzzle.klass.ObjectOperation(
@@ -146,13 +128,22 @@
 	}
 
 	function apply(puzzle, ops) {
+		puzzle.errclear();
 		if (!ops.length) {
 			return;
 		}
 		puzzle.opemgr.newOperation();
 		ops.forEach(function(op) {
-			var piece = op.getPiece();
-			piece.setdata(op.property, op.num);
+			if (op instanceof puzzle.klass.TrialFinalizeOperation) {
+				puzzle.opemgr.add(op);
+				op.redo();
+				puzzle.opemgr.limitTrialUndo = false;
+				puzzle.opemgr.checkexec();
+			} else {
+				var piece = op.getPiece();
+				// As with native undo/redo, restore even an incorrect board.
+				piece.setdata(op.property, op.num, true);
+			}
 		});
 		puzzle.redraw();
 	}

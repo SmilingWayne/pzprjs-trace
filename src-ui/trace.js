@@ -818,11 +818,7 @@
 					.then(function(encoded) {
 						form.value.value = encoded;
 						var parts = splitSearch();
-						var head = [];
-						if (parts.trace) {
-							head.push("trace=" + parts.trace);
-						}
-						head.push("state=" + encoded);
+						var head = ["state=" + encoded];
 						form.link.value =
 							location.origin +
 							"/p?" +

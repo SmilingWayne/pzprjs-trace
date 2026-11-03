@@ -215,9 +215,10 @@ pzpr.classmgr.makeCommon({
 			this.property = "qnums";
 		},
 		decode: function(strs) {
-			if (strs.shift() !== "CR") {
+			if (strs[0] !== "CR") {
 				return false;
 			}
+			strs.shift();
 			this.bx = +strs.shift();
 			this.by = +strs.shift();
 			var str = strs.join(",");
@@ -424,6 +425,7 @@ pzpr.classmgr.makeCommon({
 		},
 		redo: function() {
 			this.manager.trialpos.push(this.manager.position);
+			this.board.trialstage = this.manager.trialpos.length;
 			this.manager.emitTrial(this.num);
 		},
 
