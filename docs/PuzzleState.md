@@ -31,6 +31,24 @@ The uncompressed state is exactly the current board's native pzpr file as export
 | Shikaku (`shikaku`) | `pzprv3` | Answer and auxiliary borders, including both on the same border | Cell completion and background marks |
 | Akari (`lightup`, `akari`) | `pzprv3` | Bulbs, non-bulb marks and clue completion marks | — |
 | Sudoku (`sudoku`), Fillomino (`fillomino`) | `pzprv3` | Answer numbers, candidate numbers, cell background and completion marks; Fillomino also saves answer and auxiliary borders | Candidate, background and completion marks hidden by an answer number; background marks hidden by completion marks |
+| Reflect Link (`reflect`), Herugolf (`herugolf`) | `pzprv3` | Lines and border crosses | Cell completion and background marks; crosses hidden by lines |
+| Moon or Sun (`moonsun`) | `pzprv3.2` | Lines, border crosses and cell background colors | Cell completion marks; crosses hidden by lines |
+| Kakuro (`kakuro`) | `pzprv3` | Answer numbers, candidate numbers, cell background and completion marks | Candidate, background and completion marks hidden by an answer number; background marks hidden by completion marks |
+| Hebi-Ichigo (`hebi`, `snakes`) | `pzprv3` | Answer numbers, cell background and completion marks | Background and completion marks hidden by an answer number; background marks hidden by completion marks |
+| Tasquare (`tasquare`) | `pzprv3` | Black cells and non-black marks | Clue completion marks; cell marks hidden by clues and non-black marks hidden by shading |
+| School Trip (`shugaku`) | `pzprv3` | Futon shapes, shaded cells and non-black marks | Cell completion marks; cell marks hidden by clues and non-black marks hidden by futons or shading |
+| Minesweeper (`mines`) | `pzprv3` | Black cells and non-black marks | Clue completion marks; non-black marks hidden by shading |
+| FiveCells (`fivecells`) | `pzprv3` | Answer and auxiliary borders, including both on the same border | Cell completion and background marks |
+| Castle Wall (`castle`) | `pzprv3` | Lines, border crosses and clue completion marks | Cell background marks; crosses hidden by lines |
+| Mochikoro (`mochikoro`), Paintarea (`paintarea`), Chocona (`chocona`) | `pzprv3` (Mochikoro, Paintarea), `pzprv3.1` (Chocona) | Black cells and non-black marks | Cell completion marks; non-black marks hidden by shading |
+| Kin-Kon-Kan (`kinkonkan`) | `pzprv3.1` | Mirrors in both directions and non-mirror marks | Cell completion marks; non-mirror marks hidden by mirrors |
+| Yosenabe (`yosenabe`) | `pzprv3.1` | Lines, border crosses, cell background and completion marks | Crosses hidden by lines |
+| Curve Data (`curvedata`) | `pzprv3` | Lines and border crosses | Cell background and completion marks; lines and crosses hidden by clue borders, crosses hidden by lines |
+| Goats and Wolves (`shwolf`) | `pzprv3` | Answer and auxiliary borders, including both on the same border | Cell background and completion marks |
+| Ring-ring (`ringring`), Barns (`barns`) | `pzprv3` | Lines and border crosses | Cell background and completion marks; crosses hidden by lines |
+| Pencils (`pencils`) | `pzprv3` | Pencil arrows, cell background colors, answer and auxiliary borders, lines and border crosses | Cell completion marks; crosses hidden by lines |
+| Rooms of Factors (`factors`) | `pzprv3` | Answer numbers, candidate numbers, cell background and completion marks | Candidate, background and completion marks hidden by an answer number; background marks hidden by completion marks |
+| Tatebo-Yokobo (`tateyoko`) | `pzprv3` | Horizontal and vertical bars | Cell background and completion marks; bars hidden by blocked cells |
 
 Slitherlink's full-clue variant, Masyu's Ura-masyu mode and other puzzle types are not currently supported. Ura-masyu reverses the pearl rules but its setting is not stored in native files, so a state cannot identify that mode. Yajilin's `b` display flag is supported. Its `o` rule flag, Aqre's `aqre_borders`, Masyu's and Mid-loop's `loop_full`, Arukone's `dontpassallcell`, Country Road's `country_empty`, and Fillomino's `fillomino_tri` rule settings must match.
 

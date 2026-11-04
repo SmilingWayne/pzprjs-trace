@@ -21,6 +21,11 @@
 			{ group: "border", property: "qsub" }
 		]);
 		return {
+			mochikoro: { name: "Mochikoro", header: "pzprv3", fields: cells },
+			kinkonkan: { name: "Kin-Kon-Kan", header: "pzprv3.1", fields: cells },
+			paintarea: { name: "Paintarea", header: "pzprv3", fields: cells },
+			chocona: { name: "Chocona", header: "pzprv3.1", fields: cells },
+			tateyoko: { name: "Tatebo-Yokobo", header: "pzprv3", fields: cells },
 			heyawake: {
 				name: "Heyawake",
 				header: "pzprv3.1",
@@ -30,6 +35,9 @@
 			aqre: { name: "Aqre", header: "pzprv3.1", fields: cellsAndLines },
 			stostone: { name: "Stostone", header: "pzprv3.1", fields: cells },
 			kurotto: { name: "Kurotto", header: "pzprv3", fields: cells },
+			mines: { name: "Minesweeper", header: "pzprv3", fields: cells },
+			tasquare: { name: "Tasquare", header: "pzprv3", fields: cells },
+			shugaku: { name: "School Trip", header: "pzprv3", fields: cells },
 			tapa: { name: "Tapa", header: "pzprv3", fields: cellsAndLines },
 			shakashaka: { name: "Shakashaka", header: "pzprv3", fields: cells },
 			gokigen: { name: "Slant", header: "pzprv3", fields: cells },

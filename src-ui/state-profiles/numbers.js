@@ -4,8 +4,9 @@
 		module.exports = profiles;
 	} else {
 		var registry = (root.stateProfiles = root.stateProfiles || {});
-		registry.sudoku = profiles.sudoku;
-		registry.fillomino = profiles.fillomino;
+		Object.keys(profiles).forEach(function(pid) {
+			registry[pid] = profiles[pid];
+		});
 	}
 })(
 	this,
@@ -20,6 +21,13 @@
 			})
 		);
 		return {
+			factors: { name: "Rooms of Factors", header: "pzprv3", fields: fields },
+			kakuro: { name: "Kakuro", header: "pzprv3", fields: fields },
+			hebi: {
+				name: "Hebi-Ichigo",
+				header: "pzprv3",
+				fields: fields.slice(0, 3)
+			},
 			sudoku: {
 				name: "Sudoku",
 				header: "pzprv3",

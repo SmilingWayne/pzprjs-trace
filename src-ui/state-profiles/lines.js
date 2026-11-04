@@ -18,6 +18,11 @@
 			{ group: "border", property: "qsub" }
 		];
 		return {
+			castle: { name: "Castle Wall", header: "pzprv3", fields: fields },
+			yosenabe: { name: "Yosenabe", header: "pzprv3.1", fields: fields },
+			curvedata: { name: "Curve Data", header: "pzprv3", fields: fields },
+			ringring: { name: "Ring-ring", header: "pzprv3", fields: fields },
+			barns: { name: "Barns", header: "pzprv3", fields: fields },
 			mashu: {
 				name: "Masyu",
 				header: "pzprv3",
@@ -35,7 +40,10 @@
 			hashikake: { name: "Hashiwokakero", header: "pzprv3", fields: fields },
 			icebarn: { name: "Icebarn", header: "pzprv3", fields: fields },
 			slalom: { name: "Slalom", header: "pzprv3.3", fields: fields },
-			country: { name: "Country Road", header: "pzprv3.2", fields: fields }
+			country: { name: "Country Road", header: "pzprv3.2", fields: fields },
+			reflect: { name: "Reflect Link", header: "pzprv3", fields: fields },
+			herugolf: { name: "Herugolf", header: "pzprv3", fields: fields },
+			moonsun: { name: "Moon or Sun", header: "pzprv3.2", fields: fields }
 		};
 	})()
 );

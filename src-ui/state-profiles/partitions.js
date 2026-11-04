@@ -18,7 +18,17 @@
 			{ group: "border", property: "qsub" }
 		];
 		return {
+			shwolf: { name: "Goats and Wolves", header: "pzprv3", fields: fields },
+			pencils: {
+				name: "Pencils",
+				header: "pzprv3",
+				fields: fields.concat([
+					{ group: "cell", property: "qans" },
+					{ group: "border", property: "line" }
+				])
+			},
 			shikaku: { name: "Shikaku", header: "pzprv3", fields: fields },
+			fivecells: { name: "FiveCells", header: "pzprv3", fields: fields },
 			dbchoco: { name: "Double Choco", header: "pzprv3", fields: fields },
 			tentaisho: { name: "Tentaisho", header: "pzprv3", fields: fields },
 			sashigane: {
