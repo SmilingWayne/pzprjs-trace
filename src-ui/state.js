@@ -4,6 +4,7 @@
 	if (typeof module !== "undefined" && module.exports) {
 		var yajilin = require("./state-profiles/yajilin");
 		var shading = require("./state-profiles/shading");
+		var numbers = require("./state-profiles/numbers");
 		module.exports = factory({
 			slither: require("./state-profiles/slither"),
 			nurikabe: require("./state-profiles/nurikabe"),
@@ -12,7 +13,17 @@
 			heyawake: shading.heyawake,
 			nonogram: shading.nonogram,
 			shimaguni: shading.shimaguni,
-			nurimisaki: shading.nurimisaki
+			nurimisaki: shading.nurimisaki,
+			hitori: shading.hitori,
+			kurodoko: shading.kurodoko,
+			cave: shading.cave,
+			lits: shading.lits,
+			norinori: shading.norinori,
+			mashu: require("./state-profiles/mashu"),
+			shikaku: require("./state-profiles/shikaku"),
+			lightup: require("./state-profiles/lightup"),
+			sudoku: numbers.sudoku,
+			fillomino: numbers.fillomino
 		});
 	} else {
 		root.puzzleState = factory(root.stateProfiles);
@@ -46,9 +57,13 @@
 			var pieces = puzzle.board[field.group];
 			for (var i = 0; i < pieces.length; i++) {
 				if (field.pos !== undefined) {
-					pieces[i].setdata2(field.property, field.pos, -1);
+					pieces[i].setdata2(field.property, field.pos, -1, true);
 				} else {
-					pieces[i].setdata(field.property, 0);
+					pieces[i].setdata(
+						field.property,
+						field.empty === undefined ? 0 : field.empty,
+						true
+					);
 				}
 			}
 		});
@@ -86,7 +101,10 @@
 		}
 		// Check dimensions before parsing to avoid allocating a board from untrusted input.
 		var lines = text.split(/\r?\n/);
-		if (+lines[2] !== puzzle.board.rows || +lines[3] !== puzzle.board.cols) {
+		if (
+			+lines[2] !== puzzle.board.rows ||
+			(profile.square ? +lines[2] : +lines[3]) !== puzzle.board.cols
+		) {
 			throw Error("The state belongs to a different puzzle.");
 		}
 		var copy = new puzzle.pzpr.Puzzle({ type: "player" }).open(text);

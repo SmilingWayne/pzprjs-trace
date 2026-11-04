@@ -16,14 +16,15 @@
 			{ group: "cell", property: "qsub" },
 			{ group: "cell", property: "qcmp" }
 		];
+		var cellsAndLines = cells.concat([
+			{ group: "border", property: "line" },
+			{ group: "border", property: "qsub" }
+		]);
 		return {
 			heyawake: {
 				name: "Heyawake",
 				header: "pzprv3.1",
-				fields: cells.concat([
-					{ group: "border", property: "line" },
-					{ group: "border", property: "qsub" }
-				])
+				fields: cellsAndLines
 			},
 			nonogram: {
 				name: "Nonogram",
@@ -39,7 +40,12 @@
 					})
 				)
 			},
-			nurimisaki: { name: "Nurimisaki", header: "pzprv3", fields: cells }
+			nurimisaki: { name: "Nurimisaki", header: "pzprv3", fields: cells },
+			hitori: { name: "Hitori", header: "pzprv3", fields: cellsAndLines },
+			kurodoko: { name: "Kurodoko", header: "pzprv3", fields: cellsAndLines },
+			cave: { name: "Cave", header: "pzprv3", fields: cellsAndLines },
+			lits: { name: "LITS", header: "pzprv3.1", fields: cellsAndLines },
+			norinori: { name: "Norinori", header: "pzprv3.1", fields: cellsAndLines }
 		};
 	})()
 );

@@ -343,7 +343,7 @@
     "state.import": "Import state",
     "state.export": "Export state",
     "state.import.help": "pzprファイルまたは圧縮された状態を貼り付けてください。現在の盤面を置き換えますが、元に戻せます。",
-    "state.export.help": "現在の盤面をpzpr形式で保存します。ファイル形式に対応した補助記号も含まれます。対応パズル：スリザーリンク、ぬりかべ、ヤジリン、へやわけ、ノノグラム、島国、ぬりみさき。",
+    "state.export.help": "現在の盤面をpzpr形式で保存します。ファイル形式に対応した補助記号も含まれます。対応パズル：スリザーリンク、ぬりかべ、ヤジリン、へやわけ、ノノグラム、島国、ぬりみさき、ひとりにしてくれ、黒どこ、バッグ、LITS、のりのり、ましゅ、四角に切れ、美術館、数独、フィルオミノ。",
     "state.link": "共有リンク:",
     "state.diff": "Show board changes",
     "state.diff.help": "pzprjs operations applied by the most recent import:",

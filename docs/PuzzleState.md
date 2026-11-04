@@ -15,8 +15,14 @@ The uncompressed state is exactly the current board's native pzpr file as export
 | Nonogram (`nonogram`) | `pzprv3` | Black cells, non-black marks, outside-clue completion marks | — |
 | Shimaguni (`shimaguni`) | `pzprv3.1` | Black cells, non-black marks, candidate numbers | Clue completion marks |
 | Nurimisaki (`nurimisaki`) | `pzprv3` | Black cells and non-black marks | Clue completion marks |
+| Hitori (`hitori`), Kurodoko (`kurodoko`), Cave (`cave`, `bag`) | `pzprv3` | Black cells, non-black marks, auxiliary lines and border crosses | Clue completion marks |
+| LITS (`lits`), Norinori (`norinori`) | `pzprv3.1` | Black cells, non-black marks, auxiliary lines and border crosses | Completion marks |
+| Masyu (`mashu`, `pearl`) | `pzprv3` | Lines and border crosses | Cell completion and background marks |
+| Shikaku (`shikaku`) | `pzprv3` | Answer and auxiliary borders, including both on the same border | Cell completion and background marks |
+| Akari (`lightup`, `akari`) | `pzprv3` | Bulbs, non-bulb marks and clue completion marks | — |
+| Sudoku (`sudoku`), Fillomino (`fillomino`) | `pzprv3` | Answer numbers, candidate numbers, cell background and completion marks; Fillomino also saves answer and auxiliary borders | Candidate, background and completion marks hidden by an answer number; background marks hidden by completion marks |
 
-Slitherlink's full-clue variant and other puzzle types are not currently supported. Yajilin's `b` display flag is supported; its `o` rule flag must match.
+Slitherlink's full-clue variant, Masyu's Ura-masyu mode and other puzzle types are not currently supported. Ura-masyu reverses the pearl rules but its setting is not stored in native files, so a state cannot identify that mode. Yajilin's `b` display flag is supported; its `o` rule flag, Masyu's `loop_full` and Fillomino's `fillomino_tri` rule settings must match.
 
 ## Importing progress
 
@@ -43,7 +49,7 @@ Old state links remain readable. Older Slitherlink exports omitted crosses and b
 - [`src-ui/trace.js`](../src-ui/trace.js) and [`src-ui/p.html`](../src-ui/p.html): URL handling and dialogs.
 - [`test/state/`](../test/state/) and [`test/fixtures/`](../test/fixtures/): round trips, replacement, undo/redo, matching and examples.
 
-To add a puzzle, inspect its native `FileIO`, player input and operations. Define its profile with the native file version and every player field needed to reproduce a fresh-board import, including fields that must be cleared because FileIO does not save them. Register it in `state.js`; the UI bundle includes profile files automatically. The shared logic supports zero-default scalar fields and Shimaguni's candidate-number slots (default −1); use dedicated handling for other cases. Test native export equality, empty and partial states, supported marks, clearing existing and opposite marks, undo/redo, foreign clues and rules, and compressed round trips.
+To add a puzzle, inspect its native `FileIO`, player input and operations. Group profiles by their state semantics, such as shading or answer numbers, and define the native file version and every player field needed to reproduce a fresh-board import, including fields that must be cleared because FileIO does not save them. Register it in `state.js`; the UI bundle includes profile files automatically. Scalar fields default to zero unless the profile specifies `empty`; candidate-number slots default to −1. Test native export equality, empty and partial states, supported marks, clearing existing and opposite marks, undo/redo, foreign clues and rules, and compressed round trips.
 
 From the repository root, with Node.js 24 or newer:
 

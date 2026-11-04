@@ -349,7 +349,7 @@
     "state.import": "Import state",
     "state.export": "Export state",
     "state.import.help": "Paste a pzpr file or compressed state. Import replaces current progress and can be undone.",
-    "state.export.help": "Save the current board as a native pzpr state, including marks supported by the file format. Supported puzzles: Slitherlink, Nurikabe, Yajilin, Heyawake, Nonogram, Shimaguni and Nurimisaki.",
+    "state.export.help": "Save the current board as a native pzpr state, including marks supported by the file format. Supported puzzles: Slitherlink, Nurikabe, Yajilin, Heyawake, Nonogram, Shimaguni, Nurimisaki, Hitori, Kurodoko, Cave, LITS, Norinori, Masyu, Shikaku, Akari, Sudoku and Fillomino.",
     "state.link": "Share link:",
     "state.diff": "Show board changes",
     "state.diff.help": "pzprjs operations applied by the most recent import:",
