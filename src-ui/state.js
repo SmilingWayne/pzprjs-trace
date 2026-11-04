@@ -5,12 +5,23 @@
 		var yajilin = require("./state-profiles/yajilin");
 		var shading = require("./state-profiles/shading");
 		var numbers = require("./state-profiles/numbers");
+		var lines = require("./state-profiles/lines");
 		module.exports = factory({
 			slither: require("./state-profiles/slither"),
 			nurikabe: require("./state-profiles/nurikabe"),
 			yajilin: yajilin.yajilin,
 			"yajilin-regions": yajilin["yajilin-regions"],
 			heyawake: shading.heyawake,
+			ayeheya: shading.ayeheya,
+			aqre: shading.aqre,
+			stostone: shading.stostone,
+			kurotto: shading.kurotto,
+			tapa: shading.tapa,
+			midloop: lines.midloop,
+			simpleloop: lines.simpleloop,
+			pipelink: lines.pipelink,
+			numlin: lines.numlin,
+			arukone: lines.arukone,
 			nonogram: shading.nonogram,
 			shimaguni: shading.shimaguni,
 			nurimisaki: shading.nurimisaki,
@@ -19,7 +30,7 @@
 			cave: shading.cave,
 			lits: shading.lits,
 			norinori: shading.norinori,
-			mashu: require("./state-profiles/mashu"),
+			mashu: lines.mashu,
 			shikaku: require("./state-profiles/shikaku"),
 			lightup: require("./state-profiles/lightup"),
 			sudoku: numbers.sudoku,

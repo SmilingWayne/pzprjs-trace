@@ -26,6 +26,11 @@
 				header: "pzprv3.1",
 				fields: cellsAndLines
 			},
+			ayeheya: { name: "Ayeheya", header: "pzprv3.1", fields: cellsAndLines },
+			aqre: { name: "Aqre", header: "pzprv3.1", fields: cellsAndLines },
+			stostone: { name: "Stostone", header: "pzprv3.1", fields: cells },
+			kurotto: { name: "Kurotto", header: "pzprv3", fields: cells },
+			tapa: { name: "Tapa", header: "pzprv3", fields: cellsAndLines },
 			nonogram: {
 				name: "Nonogram",
 				header: "pzprv3",
