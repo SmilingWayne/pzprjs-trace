@@ -14,17 +14,25 @@ The uncompressed state is exactly the current board's native pzpr file as export
 | Heyawake (`heyawake`, `heyawacky`), Ayeheya (`ayeheya`), Aqre (`aqre`) | `pzprv3.1` | Black cells, non-black marks, border lines and crosses | Clue completion marks |
 | Nonogram (`nonogram`) | `pzprv3` | Black cells, non-black marks, outside-clue completion marks | — |
 | Stostone (`stostone`), Kurotto (`kurotto`) | `pzprv3.1` (Stostone), `pzprv3` (Kurotto) | Black cells and non-black marks | Clue completion marks |
+| Shakashaka (`shakashaka`) | `pzprv3` | Triangles, dots and completion marks | Dots and completion marks hidden by a triangle; completion marks hidden by a dot |
+| Nuri-Maze (`nurimaze`), Yajisan-Kazusan (`yajikazu`) | `pzprv3` | Black cells, non-black marks, auxiliary lines and border crosses | Completion marks |
 | Tapa (`tapa`) | `pzprv3` | Black cells, non-black marks, auxiliary lines and border crosses | Clue completion marks |
 | Shimaguni (`shimaguni`) | `pzprv3.1` | Black cells, non-black marks, candidate numbers | Clue completion marks |
 | Nurimisaki (`nurimisaki`) | `pzprv3` | Black cells and non-black marks | Clue completion marks |
 | Hitori (`hitori`), Kurodoko (`kurodoko`), Cave (`cave`, `bag`) | `pzprv3` | Black cells, non-black marks, auxiliary lines and border crosses | Clue completion marks |
 | LITS (`lits`), Norinori (`norinori`) | `pzprv3.1` | Black cells, non-black marks, auxiliary lines and border crosses | Completion marks |
-| Masyu (`mashu`, `pearl`), Mid-loop (`midloop`), Simple Loop (`simpleloop`), Pipelink (`pipelink`), Numberlink (`numlin`), Arukone (`arukone`) | `pzprv3` | Lines and border crosses | Cell completion and background marks |
+| Masyu (`mashu`, `pearl`), Mid-loop (`midloop`), Simple Loop (`simpleloop`), Pipelink (`pipelink`), Numberlink (`numlin`), Arukone (`arukone`), Hotaru Beam (`firefly`), Hashiwokakero (`hashikake`, `hashi`, `bridges`) | `pzprv3` | Lines and border crosses | Cell completion and background marks |
+| Slalom (`slalom`, `suraromu`), Icebarn (`icebarn`) | `pzprv3.3` (Slalom), `pzprv3` (Icebarn) | Lines, border crosses and direction marks, including lines with crosses or direction marks | Cell completion and background marks |
+| Country Road (`country`) | `pzprv3.2` | Lines, border crosses and cell background colors | Cell completion marks |
+| Slant (`gokigen`) | `pzprv3` | Slashes in both directions | Cell completion and background marks |
+| Double Choco (`dbchoco`) | `pzprv3` | Answer and auxiliary borders, including both on the same border | Cell completion and background marks |
+| Sashigane (`sashigane`) | `pzprv3` | Answer and auxiliary borders, cell shading and non-black marks | Cell completion marks; cell marks hidden by clues, and shading hidden by non-black marks |
+| Tentaisho (`tentaisho`) | `pzprv3` | Answer and auxiliary borders, including both on the same border, and cell background colors | Cell completion marks |
 | Shikaku (`shikaku`) | `pzprv3` | Answer and auxiliary borders, including both on the same border | Cell completion and background marks |
 | Akari (`lightup`, `akari`) | `pzprv3` | Bulbs, non-bulb marks and clue completion marks | — |
 | Sudoku (`sudoku`), Fillomino (`fillomino`) | `pzprv3` | Answer numbers, candidate numbers, cell background and completion marks; Fillomino also saves answer and auxiliary borders | Candidate, background and completion marks hidden by an answer number; background marks hidden by completion marks |
 
-Slitherlink's full-clue variant, Masyu's Ura-masyu mode and other puzzle types are not currently supported. Ura-masyu reverses the pearl rules but its setting is not stored in native files, so a state cannot identify that mode. Yajilin's `b` display flag is supported. Its `o` rule flag, Aqre's `aqre_borders`, Masyu's and Mid-loop's `loop_full`, Arukone's `dontpassallcell`, and Fillomino's `fillomino_tri` rule settings must match.
+Slitherlink's full-clue variant, Masyu's Ura-masyu mode and other puzzle types are not currently supported. Ura-masyu reverses the pearl rules but its setting is not stored in native files, so a state cannot identify that mode. Yajilin's `b` display flag is supported. Its `o` rule flag, Aqre's `aqre_borders`, Masyu's and Mid-loop's `loop_full`, Arukone's `dontpassallcell`, Country Road's `country_empty`, and Fillomino's `fillomino_tri` rule settings must match.
 
 ## Importing progress
 

@@ -31,6 +31,14 @@
 			stostone: { name: "Stostone", header: "pzprv3.1", fields: cells },
 			kurotto: { name: "Kurotto", header: "pzprv3", fields: cells },
 			tapa: { name: "Tapa", header: "pzprv3", fields: cellsAndLines },
+			shakashaka: { name: "Shakashaka", header: "pzprv3", fields: cells },
+			gokigen: { name: "Slant", header: "pzprv3", fields: cells },
+			nurimaze: { name: "Nuri-Maze", header: "pzprv3", fields: cellsAndLines },
+			yajikazu: {
+				name: "Yajisan-Kazusan",
+				header: "pzprv3",
+				fields: cellsAndLines
+			},
 			nonogram: {
 				name: "Nonogram",
 				header: "pzprv3",

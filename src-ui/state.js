@@ -6,6 +6,7 @@
 		var shading = require("./state-profiles/shading");
 		var numbers = require("./state-profiles/numbers");
 		var lines = require("./state-profiles/lines");
+		var partitions = require("./state-profiles/partitions");
 		module.exports = factory({
 			slither: require("./state-profiles/slither"),
 			nurikabe: require("./state-profiles/nurikabe"),
@@ -17,11 +18,23 @@
 			stostone: shading.stostone,
 			kurotto: shading.kurotto,
 			tapa: shading.tapa,
+			shakashaka: shading.shakashaka,
+			gokigen: shading.gokigen,
+			nurimaze: shading.nurimaze,
+			yajikazu: shading.yajikazu,
 			midloop: lines.midloop,
 			simpleloop: lines.simpleloop,
 			pipelink: lines.pipelink,
 			numlin: lines.numlin,
 			arukone: lines.arukone,
+			firefly: lines.firefly,
+			hashikake: lines.hashikake,
+			icebarn: lines.icebarn,
+			slalom: lines.slalom,
+			country: lines.country,
+			dbchoco: partitions.dbchoco,
+			sashigane: partitions.sashigane,
+			tentaisho: partitions.tentaisho,
 			nonogram: shading.nonogram,
 			shimaguni: shading.shimaguni,
 			nurimisaki: shading.nurimisaki,
@@ -31,7 +44,7 @@
 			lits: shading.lits,
 			norinori: shading.norinori,
 			mashu: lines.mashu,
-			shikaku: require("./state-profiles/shikaku"),
+			shikaku: partitions.shikaku,
 			lightup: require("./state-profiles/lightup"),
 			sudoku: numbers.sudoku,
 			fillomino: numbers.fillomino

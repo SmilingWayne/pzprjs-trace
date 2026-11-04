@@ -30,7 +30,12 @@
 			simpleloop: { name: "Simple Loop", header: "pzprv3", fields: fields },
 			pipelink: { name: "Pipelink", header: "pzprv3", fields: fields },
 			numlin: { name: "Numberlink", header: "pzprv3", fields: fields },
-			arukone: { name: "Arukone", header: "pzprv3", fields: fields }
+			arukone: { name: "Arukone", header: "pzprv3", fields: fields },
+			firefly: { name: "Hotaru Beam", header: "pzprv3", fields: fields },
+			hashikake: { name: "Hashiwokakero", header: "pzprv3", fields: fields },
+			icebarn: { name: "Icebarn", header: "pzprv3", fields: fields },
+			slalom: { name: "Slalom", header: "pzprv3.3", fields: fields },
+			country: { name: "Country Road", header: "pzprv3.2", fields: fields }
 		};
 	})()
 );
