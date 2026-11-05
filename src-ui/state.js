@@ -7,81 +7,20 @@
 		var numbers = require("./state-profiles/numbers");
 		var lines = require("./state-profiles/lines");
 		var partitions = require("./state-profiles/partitions");
-		module.exports = factory({
-			slither: require("./state-profiles/slither"),
-			nurikabe: require("./state-profiles/nurikabe"),
-			yajilin: yajilin.yajilin,
-			"yajilin-regions": yajilin["yajilin-regions"],
-			nuribou: shading.nuribou,
-			lookair: shading.lookair,
-			chainedb: shading.chainedb,
-			wagiri: shading.wagiri,
-			usoone: shading.usoone,
-			bdblock: partitions.bdblock,
-			tatamibari: partitions.tatamibari,
-			cbblock: partitions.cbblock,
-			nagare: lines.nagare,
-			geradeweg: lines.geradeweg,
-			ripple: numbers.ripple,
-			heyawake: shading.heyawake,
-			ayeheya: shading.ayeheya,
-			aqre: shading.aqre,
-			stostone: shading.stostone,
-			kurotto: shading.kurotto,
-			mines: shading.mines,
-			tasquare: shading.tasquare,
-			shugaku: shading.shugaku,
-			mochikoro: shading.mochikoro,
-			kinkonkan: shading.kinkonkan,
-			paintarea: shading.paintarea,
-			chocona: shading.chocona,
-			tateyoko: shading.tateyoko,
-			tapa: shading.tapa,
-			shakashaka: shading.shakashaka,
-			gokigen: shading.gokigen,
-			nurimaze: shading.nurimaze,
-			yajikazu: shading.yajikazu,
-			midloop: lines.midloop,
-			simpleloop: lines.simpleloop,
-			pipelink: lines.pipelink,
-			numlin: lines.numlin,
-			arukone: lines.arukone,
-			firefly: lines.firefly,
-			hashikake: lines.hashikake,
-			icebarn: lines.icebarn,
-			slalom: lines.slalom,
-			country: lines.country,
-			reflect: lines.reflect,
-			herugolf: lines.herugolf,
-			moonsun: lines.moonsun,
-			castle: lines.castle,
-			yosenabe: lines.yosenabe,
-			curvedata: lines.curvedata,
-			ringring: lines.ringring,
-			barns: lines.barns,
-			dbchoco: partitions.dbchoco,
-			sashigane: partitions.sashigane,
-			tentaisho: partitions.tentaisho,
-			nonogram: shading.nonogram,
-			shimaguni: shading.shimaguni,
-			nurimisaki: shading.nurimisaki,
-			hitori: shading.hitori,
-			kurodoko: shading.kurodoko,
-			cave: shading.cave,
-			lits: shading.lits,
-			norinori: shading.norinori,
-			mashu: lines.mashu,
-			shikaku: partitions.shikaku,
-			fivecells: partitions.fivecells,
-			shwolf: partitions.shwolf,
-			pencils: partitions.pencils,
-			lightup: require("./state-profiles/lightup"),
-			sudoku: numbers.sudoku,
-			kakuro: numbers.kakuro,
-			hebi: numbers.hebi,
-			factors: numbers.factors,
-			fillomino: numbers.fillomino
-		});
+		module.exports = factory(
+			Object.assign(
+				{
+					slither: require("./state-profiles/slither"),
+					nurikabe: require("./state-profiles/nurikabe"),
+					lightup: require("./state-profiles/lightup")
+				},
+				yajilin,
+				shading,
+				numbers,
+				lines,
+				partitions
+			)
+		);
 	} else {
 		root.puzzleState = factory(root.stateProfiles);
 	}
@@ -124,6 +63,14 @@
 				}
 			}
 		});
+		if (profile.segments) {
+			puzzle.board.segment.ansclear();
+		}
+		if (profile.bank) {
+			puzzle.board.bank.pieces.forEach(function(piece) {
+				piece.qcmp = 0;
+			});
+		}
 		puzzle.opemgr.enableRecord();
 	}
 
@@ -182,6 +129,10 @@
 		return copy;
 	}
 
+	function segmentKey(seg) {
+		return [seg.bx1, seg.by1, seg.bx2, seg.by2, seg.ox, seg.oy].join(",");
+	}
+
 	function changes(puzzle, desired) {
 		var profile = checkPuzzle(puzzle);
 		var ops = [];
@@ -213,6 +164,30 @@
 				}
 			}
 		});
+		if (profile.segments) {
+			var currentSegments = puzzle.board.segment;
+			var desiredSegments = desired.board.segment;
+			var currentKeys = Array.prototype.map.call(currentSegments, segmentKey);
+			var desiredKeys = Array.prototype.map.call(desiredSegments, segmentKey);
+			if (currentKeys.join(";") !== desiredKeys.join(";")) {
+				for (var s = currentSegments.length - 1; s >= 0; s--) {
+					ops.push(new puzzle.klass.SegmentOperation(currentSegments[s], 1, 0));
+				}
+				for (var d = 0; d < desiredSegments.length; d++) {
+					ops.push(new puzzle.klass.SegmentOperation(desiredSegments[d], 0, 1));
+				}
+			}
+		}
+		if (profile.bank) {
+			puzzle.board.bank.pieces.forEach(function(piece, i) {
+				var value = desired.board.bank.pieces[i].qcmp;
+				if (piece.qcmp !== value) {
+					ops.push(
+						new puzzle.klass.BankPieceOperation(i, "qcmp", piece.qcmp, value)
+					);
+				}
+			});
+		}
 		return ops;
 	}
 
@@ -228,6 +203,11 @@
 				op.redo();
 				puzzle.opemgr.limitTrialUndo = false;
 				puzzle.opemgr.checkexec();
+			} else if (profileOperation(op, puzzle, "SegmentOperation")) {
+				op.redo(); // SegmentList records the native operation.
+			} else if (profileOperation(op, puzzle, "BankPieceOperation")) {
+				op.redo();
+				puzzle.opemgr.add(op);
 			} else {
 				var piece = op.getPiece();
 				// As with native undo/redo, restore even an incorrect board.
@@ -239,6 +219,10 @@
 			}
 		});
 		puzzle.redraw();
+	}
+
+	function profileOperation(op, puzzle, name) {
+		return puzzle.klass[name] && op instanceof puzzle.klass[name];
 	}
 
 	function transform(bytes, stream) {

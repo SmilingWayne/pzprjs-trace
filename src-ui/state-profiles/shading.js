@@ -21,6 +21,106 @@
 			{ group: "border", property: "qsub" }
 		]);
 		return {
+			mochinyoro: { name: "Mochinyoro", header: "pzprv3", fields: cells },
+			circlesquare: {
+				name: "Circles and Squares",
+				header: "pzprv3",
+				fields: cells
+			},
+			tilepaint: { name: "Tilepaint", header: "pzprv3", fields: cells },
+			nondango: { name: "Nondango", header: "pzprv3", fields: cells },
+			antmill: { name: "Ant Mill", header: "pzprv3", fields: cells },
+			dominion: { name: "Dominion", header: "pzprv3", fields: cells },
+			canal: { name: "Canal View", header: "pzprv3", fields: cells },
+			ququ: { name: "Ququ", header: "pzprv3", fields: cells },
+			lightshadow: {
+				name: "Light and Shadow",
+				header: "pzprv3",
+				fields: cells
+			},
+			coral: {
+				name: "Coral",
+				header: "pzprv3",
+				fields: cells.concat([{ group: "excell", property: "qcmp" }])
+			},
+			heyablock: { name: "Heyablock", header: "pzprv3.1", fields: cells },
+			hinge: { name: "Hinge", header: "pzprv3.1", fields: cells },
+			kurochute: { name: "Kurochute", header: "pzprv3", fields: cellsAndLines },
+			aquapelago: {
+				name: "Aquapelago",
+				header: "pzprv3",
+				fields: cellsAndLines
+			},
+			context: { name: "Context", header: "pzprv3", fields: cellsAndLines },
+			nothree: { name: "No Three", header: "pzprv3", fields: cellsAndLines },
+			oneroom: {
+				name: "One Room One Door",
+				header: "pzprv3.1",
+				fields: cellsAndLines
+			},
+			armyants: { name: "Army Ants", header: "pzprv3", fields: cellsAndLines },
+			takoyaki: {
+				name: "Takoyaki",
+				header: "pzprv3",
+				fields: cells.concat([
+					{ group: "cell", property: "line" },
+					{ group: "border", property: "line" },
+					{ group: "border", property: "qsub" }
+				])
+			},
+			pentopia: {
+				name: "Pentopia",
+				header: "pzprv3",
+				fields: cells,
+				bank: true
+			},
+			statuepark: {
+				name: "Statue Park",
+				header: "pzprv3",
+				fields: cells,
+				bank: true
+			},
+			akichi: { name: "Akichiwake", header: "pzprv3.1", fields: cellsAndLines },
+			amibo: { name: "Amibo", header: "pzprv3", fields: cellsAndLines },
+			aquarium: {
+				name: "Aquarium",
+				header: "pzprv3",
+				fields: cells.concat([{ group: "excell", property: "qcmp" }])
+			},
+			koburin: { name: "Koburin", header: "pzprv3", fields: cellsAndLines },
+			scrin: { name: "Scrin", header: "pzprv3", fields: cells },
+			cocktail: { name: "Cocktail Lamp", header: "pzprv3.1", fields: cells },
+			interbd: {
+				name: "International Borders",
+				header: "pzprv3",
+				fields: cells
+			},
+			box: { name: "Box", header: "pzprv3", fields: cells },
+			icewalk: { name: "Ice Walk", header: "pzprv3", fields: cellsAndLines },
+			lapaz: {
+				name: "La Paz",
+				header: "pzprv3",
+				fields: cells.concat([
+					{ group: "border", property: "qans" },
+					{ group: "border", property: "qsub" }
+				])
+			},
+			kuroclone: { name: "Kuroclone", header: "pzprv3", fields: cells },
+			snake: {
+				name: "Snake",
+				header: "pzprv3",
+				fields: cells.concat([{ group: "excell", property: "qcmp" }])
+			},
+			kaero: { name: "Return Home", header: "pzprv3", fields: cellsAndLines },
+			cbanana: { name: "Choco Banana", header: "pzprv3", fields: cells },
+			tawa: { name: "Tawamurenga", header: "pzprv3", fields: cells },
+			dosufuwa: { name: "Dosun-Fuwari", header: "pzprv3", fields: cells },
+			juosan: { name: "Juosan", header: "pzprv3", fields: cells },
+			guidearrow: {
+				name: "Guide Arrow",
+				header: "pzprv3",
+				fields: cellsAndLines
+			},
 			nuribou: { name: "Nuribou", header: "pzprv3", fields: cells },
 			lookair: { name: "Look-Air", header: "pzprv3", fields: cells },
 			chainedb: { name: "Chained Block", header: "pzprv3", fields: cells },

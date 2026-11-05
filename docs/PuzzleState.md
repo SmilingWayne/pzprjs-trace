@@ -58,7 +58,63 @@ The uncompressed state is exactly the current board's native pzpr file as export
 | Uso-one (`usoone`) | `pzprv3` | Black cells, non-black marks, clue circles and crosses, auxiliary lines and border crosses | Cell marks hidden by shading; border crosses hidden by lines |
 | Ripple Effect (`ripple`) | `pzprv3` | Answer numbers, candidate numbers, cell background and completion marks | Candidate, background and completion marks hidden by an answer number; background marks hidden by completion marks |
 
-Slitherlink's full-clue variant, Masyu's Ura-masyu mode and other puzzle types are not currently supported. Ura-masyu reverses the pearl rules but its setting is not stored in native files, so a state cannot identify that mode. Yajilin's `b` display flag is supported. Its `o` rule flag, Aqre's `aqre_borders`, Masyu's, Mid-loop's and Geradeweg's `loop_full`, Arukone's `dontpassallcell`, Country Road's `country_empty`, and Fillomino's `fillomino_tri` rule settings must match.
+| Skyscrapers (`skyscrapers`) | `pzprv3` | Answer numbers and candidates | Marks hidden by clues; candidates hidden by answers |
+| Kropki (`kropki`) | `pzprv3` | Answer numbers, candidates, background and completion marks | Candidates, background and completion marks hidden by answers; background hidden by completion marks |
+| Sukoro (`sukoro`), Nanro (`nanro`), Toichika (`toichika`), Yin-Yang (`yinyang`) | `pzprv3.1` (Nanro), `pzprv3` (others) | Answer numbers, arrows or circles, background and completion marks | Background and completion marks hidden by answers; background hidden by completion marks; Yin-Yang auxiliary borders |
+| Snake (`snake`) | `pzprv3` | Black cells, non-black marks and outside-clue completion marks | Non-black marks hidden by shading |
+| Choco Banana (`cbanana`), Tawamurenga (`tawa`) | `pzprv3` | Black cells and non-black marks | Non-black marks hidden by shading; Tawamurenga marks hidden by clues |
+| Dosun-Fuwari (`dosufuwa`) | `pzprv3` | Balloons, iron balls and empty marks | Empty marks hidden by objects |
+| Compass (`compass`) | `pzprv3` | Answer and auxiliary borders, including both on the same border | Cell background and completion marks |
+| Return Home (`kaero`), Rectangle-Slider (`rectslider`) | `pzprv3` | Movement lines, border crosses and cell background colors; Rectangle-Slider also saves completion marks | Crosses hidden by lines; Return Home completion marks |
+| Tapa-Like Loop (`tapaloop`), Balance Loop (`balance`), Detour (`detour`) | `pzprv3.2` (Detour), `pzprv3` (others) | Lines and border crosses; Tapa-Like Loop and Detour also save cell circles and crosses | Crosses hidden by lines |
+| Icelom (`icelom`), Haisu (`haisu`) | `pzprv3.1` (Haisu), `pzprv3` (Icelom) | Lines, border crosses and direction marks, including marks on lines | Cell background and completion marks |
+| Juosan (`juosan`) | `pzprv3` | Horizontal and vertical bars | Cell background and completion marks; bars hidden by blocked cells |
+| Guide Arrow (`guidearrow`) | `pzprv3` | Black cells, non-black marks, auxiliary lines and border crosses | Non-black marks hidden by shading; crosses hidden by lines |
+| Shirokuro-link (`wblink`) | `pzprv3` | Lines and border crosses | Cell background and completion marks; crosses hidden by lines |
+| Kouchoku (`kouchoku`), Angle Loop (`angleloop`) | `pzprv3` | Free segments | — |
+
+| Statue Park (`statuepark`) | `pzprv3` | Black cells, non-black marks and piece-bank completion marks | Cell completion marks; non-black marks hidden by shading |
+| Akichiwake (`akichi`), Koburin (`koburin`) | `pzprv3.1` (Akichiwake), `pzprv3` (Koburin) | Black cells, non-black marks, auxiliary lines and border crosses | Cell completion marks; crosses hidden by lines |
+| Hakoiri-masashi (`hakoiri`), Minarism (`minarism`), Makaro (`makaro`), View (`view`) | `pzprv3` | Answer numbers, candidates, background and completion marks | Candidates, background and completion marks hidden by answers; background hidden by completion marks |
+| Putteria (`putteria`) | `pzprv3` | Answer numbers, background and completion marks | Candidate numbers; background and completion marks hidden by answers; background hidden by completion marks |
+| Tents (`tents`) | `pzprv3` | Tents, non-tent marks, answer and auxiliary borders and outside-clue completion marks | Cell marks hidden by trees or answers |
+| Amibo (`amibo`) | `pzprv3` | Bars, crosses, cell circles, lines and border crosses | Cell completion marks; crosses hidden by lines |
+| Aquarium (`aquarium`) | `pzprv3` | Black cells, non-black marks and outside-clue completion marks | Non-black marks hidden by shading |
+| Maxi Loop (`maxi`), Nagenawa (`nagenawa`), Double Back (`doubleback`) | `pzprv3.2` (Maxi Loop and Double Back), `pzprv3` (Nagenawa) | Lines, border crosses and cell background colors | Cell completion marks; crosses hidden by lines |
+| Rail Pool (`railpool`), Onsen-meguri (`onsen`), Mejilink (`mejilink`) | `pzprv3.2` (Onsen-meguri), `pzprv3` (others) | Lines and border crosses | Cell background and completion marks; crosses hidden by lines |
+| Bonsan (`bonsan`), Satogaeri (`satogaeri`) | `pzprv3` | Movement lines, border crosses, cell background, completion and stationary marks | Crosses hidden by lines |
+| Scrin (`scrin`), Cocktail Lamp (`cocktail`), International Borders (`interbd`), Box (`box`), Kuroclone (`kuroclone`) | `pzprv3.1` (Cocktail Lamp), `pzprv3` (others) | Black cells and non-black marks | Cell completion marks; non-black marks hidden by shading; International Borders marks hidden by clues |
+| Wall Logic (`walllogic`) | `pzprv3` | Direction answers and completion marks | Cell background and candidates; completion marks hidden by answers |
+| Easy as ABC (`easyasabc`) | `pzprv3` | Answers, candidates and presence/empty marks | Cell completion marks; some marks hidden by clues or answers |
+| Araf (`araf`), Heteromino (`heteromino`), Square Jam (`squarejam`), Voxas (`voxas`) | `pzprv3` | Answer and auxiliary borders, including both on the same border | Cell background and completion marks |
+| Ice Walk (`icewalk`) | `pzprv3` | Lines, border crosses and native ice-cell answer marks | Cell background and completion marks; crosses hidden by lines |
+| Pentominous (`pentominous`) | `pzprv3` | Answer numbers, candidates, background and completion marks, answer and auxiliary borders | Candidates, background and completion marks hidden by answers; background hidden by completion marks |
+| La Paz (`lapaz`) | `pzprv3` | Black cells, non-black marks, answer and auxiliary borders | Cell completion marks; non-black marks hidden by shading |
+
+| Mochinyoro (`mochinyoro`), Circles and Squares (`circlesquare`), Ant Mill (`antmill`), Dominion (`dominion`), Heyablock (`heyablock`), Hinge (`hinge`), Ququ (`ququ`) | `pzprv3.1` (Heyablock, Hinge), `pzprv3` (others) | Black cells and non-black marks | Cell completion marks; non-black marks hidden by shading |
+| Tilepaint (`tilepaint`), Nondango (`nondango`) | `pzprv3` | Black cells and non-black marks | Cell completion marks; allowed marks depend on the cell, and shading hides non-black marks |
+| Canal View (`canal`), Kurochute (`kurochute`) | `pzprv3` | Black cells, non-black and completion marks; Kurochute also saves auxiliary lines and crosses | Mutually exclusive cell marks; border crosses hidden by lines |
+| Coral (`coral`) | `pzprv3` | Black cells, non-black marks and outside-clue completion marks | Non-black marks hidden by shading |
+| Light and Shadow (`lightshadow`) | `pzprv3` | Black and white shading | Cell completion marks |
+| Aquapelago (`aquapelago`), Context (`context`), No Three (`nothree`), One Room One Door (`oneroom`) | `pzprv3.1` (One Room One Door), `pzprv3` (others) | Black cells, non-black marks, auxiliary lines and crosses | Cell completion marks; shading hides non-black marks, lines hide crosses, and Aquapelago clues hide cell marks |
+| Kusabi (`kusabi`), Loop Special (`loopsp`), Ichimaga (`ichimaga`), Magnetic Ichimaga (`ichimagam`), Anglers (`anglers`), Pipelink Returns (`pipelinkr`) | `pzprv3` | Lines and border crosses | Cell background and completion marks; crosses hidden by lines |
+| Litherslink (`lither`), Rassi Silai (`rassi`), Dotchi-Loop (`dotchi`) | `pzprv3.1` (Litherslink), `pzprv3.2` (others) | Lines, border crosses and cell background colors | Cell completion marks; crosses hidden by lines |
+| Remembered Length (`remlen`) | `pzprv3.2` | Lines, crosses and direction marks, including marks on lines | Cell background and completion marks |
+| NIKOJI (`nikoji`), FourCells (`fourcells`), Lohkous (`lohkous`), Aho-ni-Narikire (`aho`), Fillmat (`fillmat`), Nawabari (`nawabari`), Yajitatami (`yajitatami`) | `pzprv3.1` (FourCells), `pzprv3` (others) | Answer and auxiliary borders, including both on the same border | Cell background and completion marks |
+| Tri-place (`triplace`) | `pzprv3` | Answer and auxiliary borders, cell background colors | Cell completion marks |
+| L-route (`loute`), Tren (`tren`) | `pzprv3` | Answer and auxiliary borders and cell marks | Cell completion marks; L-route clues hide cell marks and non-black marks hide shading |
+| Cojun (`cojun`), Kazunori Room (`kazunori`), Renban-Madoguchi (`renban`), Meandering Numbers (`meander`), Tontonbeya (`tontonbeya`) | `pzprv3` | Answer numbers, candidates, cell background and completion marks | Candidates, background and completion marks hidden by answers; background hidden by completion marks |
+| Symmetry Area (`symmarea`) | `pzprv3` | Answer numbers, candidates, cell background and completion marks, answer and auxiliary borders | Candidates, background and completion marks hidden by answers; background hidden by completion marks |
+| Roma (`roma`) | `pzprv3` | Answer arrows and direction masks | Masks hidden by answers |
+| Hanare-gumi (`hanare`), Lollipops (`lollipops`) | `pzprv3` | Answer numbers, background and completion marks | Background and completion marks hidden by answers |
+| Evolmino (`evolmino`) | `pzprv3` | Squares and dots | Dots hidden by squares |
+| Goishi (`goishi`) | `pzprv3` | Picked-up stones and their order | Other cell marks |
+| Army Ants (`armyants`) | `pzprv3` | Cell marks, background colors, lines and border crosses | Crosses hidden by lines |
+| Takoyaki (`takoyaki`) | `pzprv3` | Cell circles, non-black marks, internal lines, completion marks, border lines and crosses | Crosses hidden by lines |
+| Yajisan-Sokoban (`yajisoko`), Heya-Bon (`heyabon`) | `pzprv3` | Cell background and completion marks, lines and crosses; Heya-Bon also saves stationary marks | Crosses hidden by lines |
+| Pentopia (`pentopia`) | `pzprv3` | Black cells, non-black marks and piece-bank completion marks | Cell completion marks; non-black marks hidden by shading |
+
+Slitherlink's full-clue variant, Masyu's Ura-masyu mode and other puzzle types are not currently supported. Ura-masyu reverses the pearl rules but its setting is not stored in native files, so a state cannot identify that mode. Yajilin's `b` display flag is supported. Its `o` rule flag, Aqre's `aqre_borders`, Masyu's, Mid-loop's and Geradeweg's `loop_full`, Arukone's `dontpassallcell`, Country Road's `country_empty`, Fillomino's `fillomino_tri`, Balance Loop's and Tapa-Like Loop's `loop_full` rule settings must match. Akichiwake's `akichi_maximum`, Aquarium's `aquarium_regions`, Koburin's `koburin_minesweeper` and `yajilin_out`, Ice Walk's `loop_full`, Pentominous's `fillomino_tri`, Voxas's `voxas_tatami`, La Paz's `lapaz_liar`, Tren's `tren_new`, and Pentopia's `pentopia_transparent` and piece bank also must match.
 
 ## Importing progress
 
@@ -85,7 +141,7 @@ Old state links remain readable. Older Slitherlink exports omitted crosses and b
 - [`src-ui/trace.js`](../src-ui/trace.js) and [`src-ui/p.html`](../src-ui/p.html): URL handling and dialogs.
 - [`test/state/`](../test/state/) and [`test/fixtures/`](../test/fixtures/): round trips, replacement, undo/redo, matching and examples.
 
-To add a puzzle, inspect its native `FileIO`, player input and operations. Group profiles by their state semantics, such as shading or answer numbers, and define the native file version and every player field needed to reproduce a fresh-board import, including fields that must be cleared because FileIO does not save them. Register it in `state.js`; the UI bundle includes profile files automatically. Scalar fields default to zero unless the profile specifies `empty`; candidate-number slots default to −1. Test native export equality, empty and partial states, supported marks, clearing existing and opposite marks, undo/redo, foreign clues and rules, and compressed round trips.
+To add a puzzle, inspect its native `FileIO`, player input and operations. Group profiles by their state semantics, such as shading or answer numbers, and define the native file version and every player field needed to reproduce a fresh-board import, including fields that must be cleared because FileIO does not save them. The shared engine also supports native segment operations (`segments: true`) and piece-bank completion marks (`bank: true`). Node and the UI both load the grouped profiles. Scalar fields default to zero unless the profile specifies `empty`; candidate-number slots default to −1. Test native export equality, empty and partial states, supported marks, clearing existing and opposite marks, undo/redo, foreign clues and rules, and compressed round trips.
 
 From the repository root, with Node.js 24 or newer:
 

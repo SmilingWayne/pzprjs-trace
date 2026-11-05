@@ -283,7 +283,9 @@
 	"Cell@satogaeri": {
 		posthook: {
 			qcmp: function(num) {
-				this.path.destination.room.checkAutoCmp();
+				if (this.path && this.path.destination && this.path.destination.room) {
+					this.path.destination.room.checkAutoCmp();
+				}
 			}
 		}
 	},
@@ -347,18 +349,18 @@
 	"Border@satogaeri": {
 		posthook: {
 			line: function(num) {
-				if (num) {
-					this.sidecell[0].room.checkAutoCmp();
-					this.sidecell[1].room.checkAutoCmp();
-					this.sidecell[0].path.departure.room.checkAutoCmp();
-					this.sidecell[0].path.destination.room.checkAutoCmp();
-				} else {
-					for (var id = 0; id <= 1; id++) {
-						if (this.sidecell[id].path) {
-							this.sidecell[id].path.departure.room.checkAutoCmp();
-							this.sidecell[id].path.destination.room.checkAutoCmp();
-						} else {
-							this.sidecell[id].room.checkAutoCmp();
+				for (var id = 0; id <= 1; id++) {
+					var cell = this.sidecell[id];
+					var path = cell.path;
+					if ((num || !path) && cell.room) {
+						cell.room.checkAutoCmp();
+					}
+					if (path) {
+						if (path.departure.room) {
+							path.departure.room.checkAutoCmp();
+						}
+						if (path.destination.room) {
+							path.destination.room.checkAutoCmp();
 						}
 					}
 				}

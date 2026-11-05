@@ -18,6 +18,29 @@
 			{ group: "border", property: "qsub" }
 		];
 		return {
+			nikoji: { name: "NIKOJI", header: "pzprv3", fields: fields },
+			lohkous: { name: "Lohkous", header: "pzprv3", fields: fields },
+			aho: { name: "Aho-ni-Narikire", header: "pzprv3", fields: fields },
+			fillmat: { name: "Fillmat", header: "pzprv3", fields: fields },
+			nawabari: { name: "Nawabari", header: "pzprv3", fields: fields },
+			yajitatami: { name: "Yajitatami", header: "pzprv3", fields: fields },
+			triplace: { name: "Tri-place", header: "pzprv3", fields: fields },
+			fourcells: { name: "FourCells", header: "pzprv3.1", fields: fields },
+			loute: {
+				name: "L-route",
+				header: "pzprv3",
+				fields: fields.concat([{ group: "cell", property: "qans" }])
+			},
+			tren: {
+				name: "Tren",
+				header: "pzprv3",
+				fields: fields.concat([{ group: "cell", property: "qans" }])
+			},
+			araf: { name: "Araf", header: "pzprv3", fields: fields },
+			heteromino: { name: "Heteromino", header: "pzprv3", fields: fields },
+			voxas: { name: "Voxas", header: "pzprv3", fields: fields },
+			squarejam: { name: "Square Jam", header: "pzprv3", fields: fields },
+			compass: { name: "Compass", header: "pzprv3", fields: fields },
 			bdblock: { name: "Border Block", header: "pzprv3", fields: fields },
 			tatamibari: { name: "Tatamibari", header: "pzprv3", fields: fields },
 			cbblock: { name: "Combi Block", header: "pzprv3", fields: fields },
