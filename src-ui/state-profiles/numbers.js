@@ -21,6 +21,7 @@
 			})
 		);
 		return {
+			ripple: { name: "Ripple Effect", header: "pzprv3", fields: fields },
 			factors: { name: "Rooms of Factors", header: "pzprv3", fields: fields },
 			kakuro: { name: "Kakuro", header: "pzprv3", fields: fields },
 			hebi: {

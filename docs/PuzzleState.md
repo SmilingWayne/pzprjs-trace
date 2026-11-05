@@ -49,8 +49,16 @@ The uncompressed state is exactly the current board's native pzpr file as export
 | Pencils (`pencils`) | `pzprv3` | Pencil arrows, cell background colors, answer and auxiliary borders, lines and border crosses | Cell completion marks; crosses hidden by lines |
 | Rooms of Factors (`factors`) | `pzprv3` | Answer numbers, candidate numbers, cell background and completion marks | Candidate, background and completion marks hidden by an answer number; background marks hidden by completion marks |
 | Tatebo-Yokobo (`tateyoko`) | `pzprv3` | Horizontal and vertical bars | Cell background and completion marks; bars hidden by blocked cells |
+| Nuribou (`nuribou`), Look-Air (`lookair`) | `pzprv3` | Black cells and non-black marks | Cell completion marks; non-black marks hidden by shading |
+| Chained Block (`chainedb`) | `pzprv3` | Black cells and non-black marks | Cell completion marks; cell marks hidden by clues and non-black marks hidden by shading |
+| Wagiri (`wagiri`) | `pzprv3` | Slashes in both directions | Cell completion and background marks |
+| Border Block (`bdblock`), Tatamibari (`tatamibari`), Combi Block (`cbblock`) | `pzprv3` | Answer and auxiliary borders, including both on the same border | Cell completion and background marks |
+| Nagareru-Loop (`nagare`) | `pzprv3` | Lines, border crosses and direction marks, including lines with crosses or direction marks | Cell completion and background marks |
+| Geradeweg (`geradeweg`) | `pzprv3` | Lines and border crosses | Cell completion and background marks; crosses hidden by lines |
+| Uso-one (`usoone`) | `pzprv3` | Black cells, non-black marks, clue circles and crosses, auxiliary lines and border crosses | Cell marks hidden by shading; border crosses hidden by lines |
+| Ripple Effect (`ripple`) | `pzprv3` | Answer numbers, candidate numbers, cell background and completion marks | Candidate, background and completion marks hidden by an answer number; background marks hidden by completion marks |
 
-Slitherlink's full-clue variant, Masyu's Ura-masyu mode and other puzzle types are not currently supported. Ura-masyu reverses the pearl rules but its setting is not stored in native files, so a state cannot identify that mode. Yajilin's `b` display flag is supported. Its `o` rule flag, Aqre's `aqre_borders`, Masyu's and Mid-loop's `loop_full`, Arukone's `dontpassallcell`, Country Road's `country_empty`, and Fillomino's `fillomino_tri` rule settings must match.
+Slitherlink's full-clue variant, Masyu's Ura-masyu mode and other puzzle types are not currently supported. Ura-masyu reverses the pearl rules but its setting is not stored in native files, so a state cannot identify that mode. Yajilin's `b` display flag is supported. Its `o` rule flag, Aqre's `aqre_borders`, Masyu's, Mid-loop's and Geradeweg's `loop_full`, Arukone's `dontpassallcell`, Country Road's `country_empty`, and Fillomino's `fillomino_tri` rule settings must match.
 
 ## Importing progress
 

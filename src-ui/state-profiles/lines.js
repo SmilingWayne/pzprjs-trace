@@ -18,6 +18,8 @@
 			{ group: "border", property: "qsub" }
 		];
 		return {
+			nagare: { name: "Nagareru-Loop", header: "pzprv3", fields: fields },
+			geradeweg: { name: "Geradeweg", header: "pzprv3", fields: fields },
 			castle: { name: "Castle Wall", header: "pzprv3", fields: fields },
 			yosenabe: { name: "Yosenabe", header: "pzprv3.1", fields: fields },
 			curvedata: { name: "Curve Data", header: "pzprv3", fields: fields },

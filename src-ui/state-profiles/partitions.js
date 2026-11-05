@@ -18,6 +18,9 @@
 			{ group: "border", property: "qsub" }
 		];
 		return {
+			bdblock: { name: "Border Block", header: "pzprv3", fields: fields },
+			tatamibari: { name: "Tatamibari", header: "pzprv3", fields: fields },
+			cbblock: { name: "Combi Block", header: "pzprv3", fields: fields },
 			shwolf: { name: "Goats and Wolves", header: "pzprv3", fields: fields },
 			pencils: {
 				name: "Pencils",

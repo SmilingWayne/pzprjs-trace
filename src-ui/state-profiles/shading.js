@@ -21,6 +21,11 @@
 			{ group: "border", property: "qsub" }
 		]);
 		return {
+			nuribou: { name: "Nuribou", header: "pzprv3", fields: cells },
+			lookair: { name: "Look-Air", header: "pzprv3", fields: cells },
+			chainedb: { name: "Chained Block", header: "pzprv3", fields: cells },
+			wagiri: { name: "Wagiri", header: "pzprv3", fields: cells },
+			usoone: { name: "Uso-one", header: "pzprv3", fields: cellsAndLines },
 			mochikoro: { name: "Mochikoro", header: "pzprv3", fields: cells },
 			kinkonkan: { name: "Kin-Kon-Kan", header: "pzprv3.1", fields: cells },
 			paintarea: { name: "Paintarea", header: "pzprv3", fields: cells },
