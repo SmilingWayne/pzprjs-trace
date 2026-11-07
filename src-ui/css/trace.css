@@ -168,3 +168,20 @@ form[name="trace_export"] input[type="text"],
 form[name="trace_export"] input[type="datetime-local"] {
   width: 16em;
 }
+
+#state_export_pop {
+  box-sizing: border-box;
+  width: calc(100vw - 16px);
+  max-width: 32em;
+}
+
+#state_export_link {
+  display: block;
+  max-height: 7em;
+  overflow: auto;
+  overflow-wrap: anywhere;
+}
+
+#state_export_status {
+  min-height: 1.2em;
+}

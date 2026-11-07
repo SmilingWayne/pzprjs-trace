@@ -1,6 +1,6 @@
 # Puzzle states
 
-A state saves the current puzzle progress in a link, without a database. It can be an empty, partial, complete, or incorrect board. Open **Trace → Export state** to copy the compressed state or its link; open **Trace → Import state** to paste a compressed state or native pzpr text. A state is a snapshot, not a solving history. Use [recordings](Recordings.md) for replay and step history.
+A state saves the current puzzle progress in a link, without a database. It can be an empty, partial, complete, or incorrect board. Open **Trace → Export state** to open or copy the full link, or copy only the compressed state; open **Trace → Import state** to paste a compressed state or native pzpr text. A state is a snapshot, not a solving history. Use [recordings](Recordings.md) for replay and step history.
 
 ## What is saved
 
@@ -193,7 +193,7 @@ Import first checks that the type, dimensions, clues, region boundaries and rule
 
 `STATE` is the UTF-8 native pzpr text compressed with raw DEFLATE and encoded as unpadded URL-safe Base64. Encoding and decoding happen locally using the browser's `CompressionStream` and `DecompressionStream` with `deflate-raw` support. Manual import also accepts plain pzpr text or Base64 using raw DEFLATE or zlib. State imports use the supported native file version for each puzzle.
 
-A newly exported state link does not include a `trace` parameter. For existing URLs with both parameters, a nonempty `trace` takes precedence even if loading it fails; paste the state into the import dialog to apply it manually. With no nonempty trace, a nonempty state is applied automatically.
+A newly exported state link does not include a `trace` parameter. For existing URLs with both parameters, a nonempty `trace` takes precedence even if loading it fails; paste the state into the import dialog to apply it manually. With no nonempty trace, a nonempty state is applied automatically without opening the import dialog; errors are reported.
 
 Old state links remain readable. Older Slitherlink exports omitted crosses and background colors, so those marks cannot be recovered from an old link; importing it clears the corresponding current marks.
 

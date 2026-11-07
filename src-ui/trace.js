@@ -774,10 +774,6 @@
 				stopPlay();
 				puzzleState.apply(ui.puzzle, ops);
 				status.textContent = t("state.imported", { n: ops.length });
-				if (automatic) {
-					var rect = pzpr.util.getRect(document.getElementById("menupanel"));
-					ui.popupmgr.open("state_import", 8, rect.bottom + 8);
-				}
 			})
 			.catch(function(err) {
 				var message = t("state.error") + " " + err.message;
@@ -799,16 +795,50 @@
 		}
 	});
 
+	function copyStateText(value) {
+		var status = document.getElementById("state_export_status");
+		if (navigator.clipboard && navigator.clipboard.writeText) {
+			navigator.clipboard.writeText(value).then(
+				function() {
+					status.textContent = t("state.copied");
+				},
+				function() {
+					status.textContent = t("state.copy_error");
+				}
+			);
+		} else {
+			var field = document.createElement("textarea");
+			field.value = value;
+			field.style.position = "fixed";
+			field.style.left = "-9999px";
+			document.body.appendChild(field);
+			field.select();
+			try {
+				status.textContent = t(
+					document.execCommand("copy") ? "state.copied" : "state.copy_error"
+				);
+			} catch (err) {
+				status.textContent = t("state.copy_error");
+			}
+			document.body.removeChild(field);
+		}
+	}
+
 	ui.popupmgr.addpopup("state_export", {
 		formname: "state_export",
 		show: function(px, py) {
 			ui.popupmgr.popups.template.show.call(this, px, py);
 			ui.puzzle.key.enableKey = false;
-			var form = document.state_export;
+			var popup = this;
+			var link = document.getElementById("state_export_link");
 			var status = document.getElementById("state_export_status");
-			form.value.value = "";
-			form.link.value = "";
+			var buttons = this.form.querySelectorAll("[data-button-exec^='copy_']");
+			this.encoded = "";
+			link.removeAttribute("href");
+			link.textContent = "";
+			buttons[0].disabled = buttons[1].disabled = true;
 			status.textContent = "";
+			centerPopup(this.pop);
 			try {
 				var text = puzzleState.exportText(ui.puzzle);
 				Promise.resolve()
@@ -816,17 +846,20 @@
 						return puzzleState.encode(text);
 					})
 					.then(function(encoded) {
-						form.value.value = encoded;
+						popup.encoded = encoded;
 						var parts = splitSearch();
 						var head = ["state=" + encoded];
-						form.link.value =
+						link.href =
 							location.origin +
 							"/p?" +
 							head.concat(parts.options, [parts.puzzle]).join("&");
+						link.textContent = link.href;
+						buttons[0].disabled = buttons[1].disabled = false;
 						status.textContent = t("state.size", {
 							raw: new TextEncoder().encode(text).length,
 							encoded: encoded.length
 						});
+						centerPopup(popup.pop);
 					})
 					.catch(function(err) {
 						status.textContent = t("state.error") + " " + err.message;
@@ -834,6 +867,12 @@
 			} catch (err) {
 				status.textContent = t("state.error") + " " + err.message;
 			}
+		},
+		copy_url: function() {
+			copyStateText(document.getElementById("state_export_link").href);
+		},
+		copy_state: function() {
+			copyStateText(this.encoded);
 		}
 	});
 

@@ -880,15 +880,16 @@ if ('serviceWorker' in navigator) {
     </form>
   </div>
 
-  <div class="popup">
+  <div class="popup" id="state_export_pop">
     <div class="titlebar">__state.export__</div>
     <form name="state_export">
       <p>__state.export.help__</p>
       <p><a href="https://github.com/SmilingWayne/pzprjs-trace/blob/main/docs/PuzzleState.md" target="_blank" rel="noopener noreferrer">__state.supported__</a></p>
-      <textarea name="value" cols="48" rows="4" readonly></textarea>
       <p>__state.link__</p>
-      <textarea name="link" cols="48" rows="3" readonly></textarea>
+      <a id="state_export_link" target="_blank" rel="noopener noreferrer"></a>
       <div id="state_export_status" role="status"></div>
+      <button type="button" class="btn" data-button-exec="copy_url" disabled>__state.copy_url__</button>
+      <button type="button" class="btn" data-button-exec="copy_state" disabled>__state.copy_state__</button>
       <button type="button" class="btn" data-button-exec="close">__trace.close__</button>
     </form>
   </div>
