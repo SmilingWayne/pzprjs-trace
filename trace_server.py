@@ -10,11 +10,14 @@ built dist/ directory and this file can host it. Node is for the build.
 
 import argparse
 import json
+import math
 import os
 import re
 import secrets
 import sqlite3
 import string
+import time
+from collections import deque
 from datetime import datetime, timezone
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
@@ -23,6 +26,13 @@ from urllib.parse import urlsplit, urlunsplit
 ID_ALPHABET = string.ascii_letters + string.digits + "_"
 ID_LENGTH = 12
 ID_RE = re.compile(r"^[A-Za-z0-9_]+$")
+
+MAX_BODY_BYTES = int(os.environ.get("PZPR_TRACE_MAX_BODY_BYTES", 256 * 1024))
+DB_MAX_BYTES = int(os.environ.get("PZPR_TRACE_DB_MAX_BYTES", 4 * 1024**3))
+POST_RATE_LIMIT = int(os.environ.get("PZPR_TRACE_POST_RATE_LIMIT", 10))
+POST_RATE_WINDOW = float(os.environ.get("PZPR_TRACE_POST_RATE_WINDOW", 60.0))
+RATE_MAX_IPS = 4096
+LOOPBACK_PEERS = ("127.0.0.1", "::1")
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS traces (
@@ -42,9 +52,16 @@ CREATE INDEX IF NOT EXISTS traces_puzzle ON traces(puzzle);
 def connect(path):
     Path(path).parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(path)
-    conn.row_factory = sqlite3.Row
-    conn.execute("PRAGMA journal_mode=WAL")
-    conn.executescript(SCHEMA)
+    try:
+        conn.row_factory = sqlite3.Row
+        page_size = conn.execute("PRAGMA page_size").fetchone()[0]
+        max_pages = max(2, DB_MAX_BYTES // page_size)
+        conn.execute("PRAGMA max_page_count = %d" % max_pages)
+        conn.execute("PRAGMA journal_mode=WAL")
+        conn.executescript(SCHEMA)
+    except BaseException:
+        conn.close()
+        raise
     return conn
 
 
@@ -98,6 +115,42 @@ def get_trace(conn, ident):
 def make_handler(db_path, dist_dir):
     db_path = str(db_path)
     dist_dir = str(dist_dir)
+    post_hits = {}
+
+    def rate_limit_retry_after(client_address, headers):
+        """Return seconds to retry after when this POST is over the limit."""
+        limit = POST_RATE_LIMIT
+        if limit <= 0:
+            return None
+        peer = client_address[0]
+        forwarded = headers.get("CF-Connecting-IP")
+        if peer in LOOPBACK_PEERS:
+            if not forwarded:
+                return None
+            key = forwarded.strip()
+        else:
+            key = peer
+        now = time.monotonic()
+        window = POST_RATE_WINDOW
+        hits = post_hits.get(key)
+        if hits is None:
+            if len(post_hits) >= RATE_MAX_IPS:
+                stale = [
+                    other
+                    for other, stamps in post_hits.items()
+                    if not stamps or now - stamps[-1] >= window
+                ]
+                for other in stale:
+                    del post_hits[other]
+                if len(post_hits) >= RATE_MAX_IPS:
+                    del post_hits[next(iter(post_hits))]
+            hits = post_hits[key] = deque()
+        while hits and now - hits[0] >= window:
+            hits.popleft()
+        if len(hits) >= limit:
+            return max(1, math.ceil(hits[0] + window - now))
+        hits.append(now)
+        return None
 
     class TraceHandler(SimpleHTTPRequestHandler):
         def __init__(self, *args, **kwargs):
@@ -152,8 +205,27 @@ def make_handler(db_path, dist_dir):
             self.send_json(200, row)
 
         def handle_post_trace(self):
+            retry_after = rate_limit_retry_after(self.client_address, self.headers)
+            if retry_after is not None:
+                self.close_connection = True
+                self.send_json(
+                    429, {"error": "rate limit"}, {"Retry-After": str(retry_after)}
+                )
+                return
+            raw_length = self.headers.get("Content-Length")
             try:
-                length = int(self.headers.get("Content-Length", "0"))
+                length = int(raw_length) if raw_length is not None else 0
+            except (TypeError, ValueError):
+                length = 0
+            if length <= 0:
+                self.close_connection = True
+                self.send_json(400, {"error": "bad"})
+                return
+            if length > MAX_BODY_BYTES:
+                self.close_connection = True
+                self.send_json(413, {"error": "too large"})
+                return
+            try:
                 data = json.loads(self.rfile.read(length).decode("utf-8"))
                 conn = connect(db_path)
                 try:
@@ -163,14 +235,22 @@ def make_handler(db_path, dist_dir):
             except (ValueError, json.JSONDecodeError, UnicodeError):
                 self.send_json(400, {"error": "bad"})
                 return
+            except sqlite3.Error as exc:
+                self.log_error(
+                    "storage failure from %s: %s", self.client_address[0], exc
+                )
+                self.send_json(507, {"error": "storage"})
+                return
             self.send_json(201, row)
 
-        def send_json(self, code, payload):
+        def send_json(self, code, payload, headers=None):
             raw = json.dumps(payload, ensure_ascii=False).encode("utf-8")
             self.send_response(code)
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.send_header("Content-Length", str(len(raw)))
             self.send_header("Cache-Control", "no-store")
+            for name, value in (headers or {}).items():
+                self.send_header(name, value)
             self.end_headers()
             self.wfile.write(raw)
 
