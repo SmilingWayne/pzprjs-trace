@@ -18,6 +18,9 @@
 			{ group: "border", property: "qsub" }
 		];
 		return {
+			heavydots: { name: "Heavy Dots", header: "pzprv3", fields: fields },
+			narrow: { name: "Narrowfence", header: "pzprv3", fields: fields },
+			longest: { name: "The Longest", header: "pzprv3", fields: fields },
 			usotatami: { name: "Uso-tatami", header: "pzprv3", fields: fields },
 			kramma: { name: "KaitoRamma", header: "pzprv3", fields: fields },
 			kramman: { name: "New KaitoRamma", header: "pzprv3", fields: fields },

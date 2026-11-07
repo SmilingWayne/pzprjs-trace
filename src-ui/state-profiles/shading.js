@@ -21,6 +21,137 @@
 			{ group: "border", property: "qsub" }
 		]);
 		return {
+			anymino: { name: "Anymino", header: "pzprv3", fields: cells },
+			archipelago: { name: "Archipelago", header: "pzprv3", fields: cells },
+			bosnianroad: { name: "Bosnian Road", header: "pzprv3", fields: cells },
+			bramble: { name: "Bramble", header: "pzprv3.1", fields: cells },
+			cityspace: { name: "City Space", header: "pzprv3", fields: cells },
+			cornerch: { name: "Corner Chain", header: "pzprv3", fields: cells },
+			creek: { name: "Creek", header: "pzprv3", fields: cells },
+			disco: { name: "Disconnection", header: "pzprv3", fields: cells },
+			hasunomura: { name: "Hasu no Mura", header: "pzprv3", fields: cells },
+			island: { name: "Inaba's Island", header: "pzprv3", fields: cells },
+			landmeasure: {
+				name: "Land Measurement",
+				header: "pzprv3",
+				fields: cells
+			},
+			marutaring: { name: "Marutaring", header: "pzprv3.1", fields: cells },
+			mrtile: { name: "Mirroring Tile", header: "pzprv3", fields: cells },
+			nibunnogo: { name: "Nibun-nogo", header: "pzprv3", fields: cells },
+			nuritwin: { name: "Nuritwin", header: "pzprv3.1", fields: cells },
+			bhaibahan: {
+				name: "Bhai Bahan",
+				header: "pzprv3",
+				fields: cellsAndLines
+			},
+			circuitwalk: {
+				name: "Circuit Walk",
+				header: "pzprv3",
+				fields: cellsAndLines
+			},
+			curving: {
+				name: "Curving Road",
+				header: "pzprv3",
+				fields: cellsAndLines
+			},
+			energywalk: {
+				name: "Energy Walk",
+				header: "pzprv3",
+				fields: cellsAndLines
+			},
+			fakearrow: {
+				name: "Fake Arrow",
+				header: "pzprv3",
+				fields: cellsAndLines
+			},
+			heyajirimisaki: {
+				name: "Heyajirimisaki",
+				header: "pzprv3",
+				fields: cellsAndLines
+			},
+			invlitso: {
+				name: "Inverse LITSO",
+				header: "pzprv3.1",
+				fields: cellsAndLines
+			},
+			lixloop: { name: "LIX Loop", header: "pzprv3", fields: cellsAndLines },
+			morningwalk: {
+				name: "Morning Walk",
+				header: "pzprv3",
+				fields: cellsAndLines
+			},
+			oasis: { name: "Oasis", header: "pzprv3", fields: cellsAndLines },
+			outofsight: {
+				name: "Out Of Sight",
+				header: "pzprv3",
+				fields: cellsAndLines
+			},
+			batten: {
+				name: "Battenberg Painting",
+				header: "pzprv3",
+				fields: cells.concat([{ group: "excell", property: "qcmp" }])
+			},
+			gravel: {
+				name: "Gravel",
+				header: "pzprv3",
+				fields: cells.concat([
+					{ group: "border", property: "qans" },
+					{ group: "border", property: "qsub" }
+				])
+			},
+			korokoro: {
+				name: "Korokoro Ball Place",
+				header: "pzprv3",
+				fields: cells.concat(
+					[0, 1, 2, 3].map(function(pos) {
+						return { group: "cell", property: "snum", pos: pos };
+					})
+				)
+			},
+			edamame: {
+				name: "Edamame",
+				header: "pzprv3",
+				fields: cells.concat([
+					{ group: "cell", property: "line" },
+					{ group: "border", property: "line" },
+					{ group: "border", property: "qsub" }
+				])
+			},
+			distopia: {
+				name: "Distopia",
+				header: "pzprv3",
+				fields: cells,
+				bank: true
+			},
+			kissing: {
+				name: "Kissing Polyominoes",
+				header: "pzprv3",
+				fields: cells,
+				bank: true
+			},
+			heyapin: {
+				name: "Heyapin",
+				header: "pzprv3.1",
+				fields: cells.concat([
+					{ group: "cross", property: "qans" },
+					{ group: "cross", property: "qsub" }
+				])
+			},
+			meidjuluk: {
+				name: "Meidjuluk",
+				header: "pzprv3",
+				fields: cells.concat(
+					[
+						{ group: "border", property: "qans" },
+						{ group: "border", property: "qsub" }
+					],
+					[0, 1, 2, 3].map(function(pos) {
+						return { group: "cell", property: "snum", pos: pos };
+					})
+				),
+				bank: true
+			},
 			oyakodori: { name: "Oyakodori", header: "pzprv3", fields: cellsAndLines },
 			ladders: { name: "Ladders", header: "pzprv3.1", fields: cellsAndLines },
 			diamond: {

@@ -21,6 +21,40 @@
 			})
 		);
 		return {
+			alter: { name: "Alternation", header: "pzprv3", fields: fields },
+			jatahoku: { name: "JaTaHoKu", header: "pzprv3", fields: fields },
+			mrokmrno: { name: "Mr. OK and Mr. NO", header: "pzprv3", fields: fields },
+			doppelblock: {
+				name: "Doppelblock",
+				header: "pzprv3",
+				fields: fields.concat([{ group: "cell", property: "qans" }])
+			},
+			japanesesums: {
+				name: "Japanese Sums",
+				header: "pzprv3",
+				fields: fields.concat([{ group: "cell", property: "qans" }])
+			},
+			isowatari: {
+				name: "Isowatari",
+				header: "pzprv3",
+				fields: fields.concat([{ group: "cell", property: "qans" }])
+			},
+			numcity: {
+				name: "Number City",
+				header: "pzprv3",
+				fields: fields.concat([
+					{ group: "border", property: "qans" },
+					{ group: "border", property: "qsub" }
+				])
+			},
+			blindrush: {
+				name: "Blind Rush",
+				header: "pzprv3",
+				fields: fields.concat([
+					{ group: "border", property: "line" },
+					{ group: "border", property: "qsub" }
+				])
+			},
 			bosanowa: {
 				name: "Bosanowa",
 				header: "pzprv3",

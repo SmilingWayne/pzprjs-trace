@@ -18,6 +18,24 @@
 			{ group: "border", property: "qsub" }
 		];
 		return {
+			balancelink: { name: "Balance Link", header: "pzprv3", fields: fields },
+			bwloop: { name: "Kuroshiro Loop", header: "pzprv3", fields: fields },
+			dotchi2: {
+				name: "Dotchi Dotchi Loop",
+				header: "pzprv3.2",
+				fields: fields
+			},
+			elasticlink: { name: "Elastic Link", header: "pzprv3", fields: fields },
+			golemgrad: { name: "Golem Grad", header: "pzprv3", fields: fields },
+			lineofsight: { name: "Line of Sight", header: "pzprv3", fields: fields },
+			lring: { name: "L-Ring", header: "pzprv3", fields: fields },
+			nuriloop: { name: "Nurikabe Loop", header: "pzprv3", fields: fields },
+			orbital: { name: "Orbital", header: "pzprv3", fields: fields },
+			hamlepaths: {
+				name: "Hamle Paths",
+				header: "pzprv3",
+				fields: fields.concat([{ group: "cell", property: "anum", empty: -1 }])
+			},
 			roundtrip: { name: "Round Trip", header: "pzprv3", fields: fields },
 			balloon: {
 				name: "Balloon Box",
