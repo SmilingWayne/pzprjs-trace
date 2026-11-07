@@ -18,6 +18,17 @@
 			{ group: "border", property: "qsub" }
 		];
 		return {
+			sendai: { name: "Sendai-Miyagi", header: "pzprv3", fields: fields },
+			subomino: { name: "Subomino", header: "pzprv3", fields: fields },
+			tachibk: {
+				name: "Tachiawase Block",
+				header: "pzprv3",
+				fields: fields.concat(
+					[0, 1, 2, 3].map(function(pos) {
+						return { group: "cell", property: "snum", pos: pos };
+					})
+				)
+			},
 			heavydots: { name: "Heavy Dots", header: "pzprv3", fields: fields },
 			narrow: { name: "Narrowfence", header: "pzprv3", fields: fields },
 			longest: { name: "The Longest", header: "pzprv3", fields: fields },

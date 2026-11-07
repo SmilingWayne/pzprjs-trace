@@ -21,6 +21,34 @@
 			})
 		);
 		return {
+			scrabble: {
+				name: "Scrabble",
+				header: "pzprv3",
+				fields: fields,
+				bank: true
+			},
+			slovak: { name: "Slovak Sums", header: "pzprv3", fields: fields },
+			soulmates: { name: "Soul Mates", header: "pzprv3", fields: fields },
+			suguru: { name: "Suguru", header: "pzprv3", fields: fields },
+			twinarea: { name: "Twin Area", header: "pzprv3", fields: fields },
+			yajirushi: { name: "Yajirushi", header: "pzprv3", fields: fields },
+			yajirushi2: { name: "Yajirushi 2", header: "pzprv3", fields: fields },
+			tetrominous: {
+				name: "Tetrominous",
+				header: "pzprv3",
+				fields: fields.concat([
+					{ group: "border", property: "qans" },
+					{ group: "border", property: "qsub" }
+				])
+			},
+			topo: {
+				name: "Topo",
+				header: "pzprv3.1",
+				fields: fields.concat([
+					{ group: "border", property: "qans" },
+					{ group: "border", property: "qsub" }
+				])
+			},
 			alter: { name: "Alternation", header: "pzprv3", fields: fields },
 			jatahoku: { name: "JaTaHoKu", header: "pzprv3", fields: fields },
 			mrokmrno: { name: "Mr. OK and Mr. NO", header: "pzprv3", fields: fields },

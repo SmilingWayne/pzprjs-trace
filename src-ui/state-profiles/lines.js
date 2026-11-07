@@ -18,6 +18,34 @@
 			{ group: "border", property: "qsub" }
 		];
 		return {
+			pmemory: {
+				name: "Persistence of Memory",
+				header: "pzprv3",
+				fields: fields
+			},
+			portal: { name: "Portal Loop", header: "pzprv3", fields: fields },
+			recoil: { name: "Recoil", header: "pzprv3", fields: fields },
+			tjunction: { name: "T-Junction", header: "pzprv3", fields: fields },
+			turnrun: { name: "Turn and Run", header: "pzprv3", fields: fields },
+			urumi: { name: "Urumi Spirals", header: "pzprv3", fields: fields },
+			uturns: { name: "U-Turns", header: "pzprv3", fields: fields },
+			vertigo: { name: "Vertigo", header: "pzprv3", fields: fields },
+			wataridori: { name: "Wataridori", header: "pzprv3.2", fields: fields },
+			timebomb: {
+				name: "Time Bomb",
+				header: "pzprv3",
+				fields: fields.concat([{ group: "cell", property: "anum", empty: -1 }])
+			},
+			ubahn: {
+				name: "U-Bahn",
+				header: "pzprv3",
+				fields: fields.concat(
+					[{ group: "excell", property: "qcmp" }],
+					[0, 1, 2, 3].map(function(pos) {
+						return { group: "cell", property: "snum", pos: pos };
+					})
+				)
+			},
 			balancelink: { name: "Balance Link", header: "pzprv3", fields: fields },
 			bwloop: { name: "Kuroshiro Loop", header: "pzprv3", fields: fields },
 			dotchi2: {

@@ -21,6 +21,72 @@
 			{ group: "border", property: "qsub" }
 		]);
 		return {
+			retsurin: {
+				name: "Retsurin",
+				header: "pzprv3",
+				fields: cellsAndLines,
+				ignoreIdentityConfig: ["disptype_yajilin"]
+			},
+			roboticwalk: {
+				name: "Robotic Walk",
+				header: "pzprv3",
+				fields: cellsAndLines
+			},
+			ruleofthree: {
+				name: "Rule of Three",
+				header: "pzprv3",
+				fields: cellsAndLines
+			},
+			sansaroad: {
+				name: "Sansa Road",
+				header: "pzprv3",
+				fields: cellsAndLines
+			},
+			sashikabe: { name: "Sashikabe", header: "pzprv3", fields: cells },
+			seiza: { name: "Seiza", header: "pzprv3", fields: cellsAndLines },
+			smullyan: {
+				name: "Smullyanic Dynasty",
+				header: "pzprv3",
+				fields: cellsAndLines
+			},
+			starbattle: { name: "Star Battle", header: "pzprv3", fields: cells },
+			sumiwake: { name: "Sumiwake", header: "pzprv3.1", fields: cellsAndLines },
+			tetrochaink: {
+				name: "Tetro Chain-K",
+				header: "pzprv3",
+				fields: cellsAndLines
+			},
+			tetroctb: { name: "Tetro Chain-CTB", header: "pzprv3.1", fields: cells },
+			yokeimoji: {
+				name: "Yokeimoji Cross",
+				header: "pzprv3",
+				fields: cellsAndLines
+			},
+			"regional-poly": {
+				name: "Regional Polyominoes",
+				header: "pzprv3",
+				fields: cells,
+				bank: true
+			},
+			retroships: {
+				name: "Retrograde Battleships",
+				header: "pzprv3",
+				fields: cells,
+				bank: true
+			},
+			trizone: {
+				name: "Trizone",
+				header: "pzprv3",
+				fields: cells.concat([
+					{ group: "border", property: "qans" },
+					{ group: "border", property: "qsub" }
+				])
+			},
+			zabajaba: {
+				name: "Zabajaba",
+				header: "pzprv3",
+				fields: cellsAndLines.concat([{ group: "cell", property: "line" }])
+			},
 			anymino: { name: "Anymino", header: "pzprv3", fields: cells },
 			archipelago: { name: "Archipelago", header: "pzprv3", fields: cells },
 			bosnianroad: { name: "Bosnian Road", header: "pzprv3", fields: cells },
@@ -319,7 +385,12 @@
 				header: "pzprv3",
 				fields: cells.concat([{ group: "excell", property: "qcmp" }])
 			},
-			koburin: { name: "Koburin", header: "pzprv3", fields: cellsAndLines },
+			koburin: {
+				name: "Koburin",
+				header: "pzprv3",
+				fields: cellsAndLines,
+				ignoreIdentityConfig: ["disptype_yajilin"]
+			},
 			scrin: { name: "Scrin", header: "pzprv3", fields: cells },
 			cocktail: { name: "Cocktail Lamp", header: "pzprv3.1", fields: cells },
 			interbd: {

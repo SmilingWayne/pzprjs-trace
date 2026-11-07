@@ -123,6 +123,9 @@
 		var blank = clone(copy);
 		clean(original);
 		clean(blank);
+		(profile.ignoreIdentityConfig || []).forEach(function(name) {
+			original.setConfig(name, blank.getConfig(name));
+		});
 		if (normalized(file(original)) !== normalized(file(blank))) {
 			throw Error("The state belongs to a different puzzle.");
 		}
