@@ -301,7 +301,7 @@
 	LineGraph: {
 		enabled: true,
 		coloring: false,
-		relation: { segment: "link" },
+		relation: { segment: "link", "border.line": null },
 
 		pointgroup: "room",
 		linkgroup: "segment",

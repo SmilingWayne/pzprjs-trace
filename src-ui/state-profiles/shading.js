@@ -21,6 +21,107 @@
 			{ group: "border", property: "qsub" }
 		]);
 		return {
+			oyakodori: { name: "Oyakodori", header: "pzprv3", fields: cellsAndLines },
+			ladders: { name: "Ladders", header: "pzprv3.1", fields: cellsAndLines },
+			diamond: {
+				name: "Diamond Chain",
+				header: "pzprv3",
+				fields: cells.concat([
+					{ group: "cross", property: "qans" },
+					{ group: "cross", property: "qsub" }
+				])
+			},
+			kurarin: { name: "Kurarin", header: "pzprv3", fields: cellsAndLines },
+			slashpack: { name: "Slash Pack", header: "pzprv3", fields: cells },
+			crossstitch: {
+				name: "Crossstitch",
+				header: "pzprv3",
+				fields: cells.concat([{ group: "cross", property: "qsub" }])
+			},
+			pentatouch: {
+				name: "Penta Touch",
+				header: "pzprv3",
+				fields: cells,
+				bank: true
+			},
+			battleship: {
+				name: "Battleship",
+				header: "pzprv3",
+				fields: cells.concat([{ group: "excell", property: "qcmp" }]),
+				bank: true
+			},
+			snakeegg: {
+				name: "Snake Egg",
+				header: "pzprv3",
+				fields: cells.concat(
+					[0, 1, 2, 3].map(function(pos) {
+						return { group: "cell", property: "snum", pos: pos };
+					})
+				),
+				bank: true
+			},
+			martini: { name: "Martini", header: "pzprv3.1", fields: cells },
+			forestwalk: {
+				name: "Forest Walk",
+				header: "pzprv3",
+				fields: cellsAndLines
+			},
+			waterwalk: {
+				name: "Water Walk",
+				header: "pzprv3",
+				fields: cellsAndLines
+			},
+			firewalk: {
+				name: "Fire Walk",
+				header: "pzprv3",
+				fields: cellsAndLines.concat([{ group: "cross", property: "qsub" }])
+			},
+			kaidan: {
+				name: "Stairwell",
+				header: "pzprv3",
+				fields: cellsAndLines.concat([{ group: "cell", property: "line" }])
+			},
+			wittgen: {
+				name: "Wittgenstein Briquet",
+				header: "pzprv3",
+				fields: cellsAndLines.concat([{ group: "cell", property: "line" }])
+			},
+			mannequin: {
+				name: "Mannequin Gate",
+				header: "pzprv3",
+				fields: cells.concat(
+					[0, 1, 2, 3].map(function(pos) {
+						return { group: "cell", property: "snum", pos: pos };
+					})
+				)
+			},
+			teri: {
+				name: "Territory",
+				header: "pzprv3",
+				fields: cells.concat([
+					{ group: "border", property: "qans" },
+					{ group: "border", property: "qsub" }
+				])
+			},
+			patchwork: {
+				name: "Patchwork",
+				header: "pzprv3",
+				fields: cells.concat([
+					{ group: "border", property: "qans" },
+					{ group: "border", property: "qsub" }
+				])
+			},
+			norinuri: { name: "Norinuri", header: "pzprv3", fields: cells },
+			parquet: { name: "Parquet", header: "pzprv3", fields: cells },
+			tetrochain: { name: "Tetro Chain-Y", header: "pzprv3", fields: cells },
+			kuromenbun: { name: "Kuromenbun", header: "pzprv3", fields: cells },
+			nuriuzu: { name: "Nuri-uzu", header: "pzprv3", fields: cells },
+			tilecity: { name: "Tile City", header: "pzprv3", fields: cells },
+			cts: {
+				name: "Cross the Streams",
+				header: "pzprv3",
+				fields: cells.concat([{ group: "excell", property: "qcmp" }])
+			},
 			mochinyoro: { name: "Mochinyoro", header: "pzprv3", fields: cells },
 			circlesquare: {
 				name: "Circles and Squares",

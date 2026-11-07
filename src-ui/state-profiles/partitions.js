@@ -18,6 +18,17 @@
 			{ group: "border", property: "qsub" }
 		];
 		return {
+			usotatami: { name: "Uso-tatami", header: "pzprv3", fields: fields },
+			kramma: { name: "KaitoRamma", header: "pzprv3", fields: fields },
+			kramman: { name: "New KaitoRamma", header: "pzprv3", fields: fields },
+			familyphoto: { name: "Family Photo", header: "pzprv3", fields: fields },
+			fracdiv: {
+				name: "Fractional Division",
+				header: "pzprv3",
+				fields: fields
+			},
+			sashikazune: { name: "Sashikazune", header: "pzprv3", fields: fields },
+			mirrorbk: { name: "Mirror Block", header: "pzprv3", fields: fields },
 			nikoji: { name: "NIKOJI", header: "pzprv3", fields: fields },
 			lohkous: { name: "Lohkous", header: "pzprv3", fields: fields },
 			aho: { name: "Aho-ni-Narikire", header: "pzprv3", fields: fields },

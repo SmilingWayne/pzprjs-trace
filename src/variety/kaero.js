@@ -235,7 +235,7 @@
 				}
 				var path = this.sidecell[0].path || this.sidecell[1].path;
 
-				if (path.departure.qnum !== 2) {
+				if (!path || !path.departure || path.departure.qnum !== 2) {
 					return false;
 				}
 

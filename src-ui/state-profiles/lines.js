@@ -18,6 +18,58 @@
 			{ group: "border", property: "qsub" }
 		];
 		return {
+			roundtrip: { name: "Round Trip", header: "pzprv3", fields: fields },
+			balloon: {
+				name: "Balloon Box",
+				header: "pzprv3",
+				fields: fields.concat([{ group: "border", property: "qans" }])
+			},
+			vslither: {
+				name: "Vertex Slitherlink",
+				header: "pzprv3",
+				fields: fields.concat([{ group: "cross", property: "qsub" }])
+			},
+			tslither: {
+				name: "Touch Slitherlink",
+				header: "pzprv3",
+				fields: fields.concat([{ group: "cross", property: "qsub" }])
+			},
+			tajmahal: {
+				name: "Taj Mahal",
+				header: "pzprv3",
+				fields: [],
+				segments: true
+			},
+			disloop: { name: "Disorderly Loop", header: "pzprv3", fields: fields },
+			nanameguri: { name: "Nanameguri", header: "pzprv3", fields: fields },
+			ovotovata: { name: "Ovotovata", header: "pzprv3.2", fields: fields },
+			mukkonn: { name: "Mukkonn Enn", header: "pzprv3", fields: fields },
+			trainstations: {
+				name: "Train Stations",
+				header: "pzprv3",
+				fields: fields
+			},
+			bdwalk: { name: "Building Walk", header: "pzprv3", fields: fields },
+			brownies: { name: "Brownies", header: "pzprv3", fields: fields },
+			ichimagax: {
+				name: "Crossing Ichimaga",
+				header: "pzprv3",
+				fields: fields
+			},
+			kaisu: { name: "Kaisu", header: "pzprv3.1", fields: fields },
+			myopia: { name: "Myopia", header: "pzprv3", fields: fields },
+			turnaround: { name: "Turnaround", header: "pzprv3", fields: fields },
+			coffeemilk: { name: "Coffee Milk", header: "pzprv3", fields: fields },
+			mintonette: { name: "Mintonette", header: "pzprv3", fields: fields },
+			icelom2: { name: "Icelom 2", header: "pzprv3", fields: fields },
+			nothing: { name: "All or Nothing", header: "pzprv3.2", fields: fields },
+			bunnyhop: { name: "Bunnyhop", header: "pzprv3", fields: fields },
+			tontti: { name: "Tonttiraja", header: "pzprv3", fields: fields },
+			swslither: {
+				name: "Sheep Wolf Slitherlink",
+				header: "pzprv3.1",
+				fields: fields
+			},
 			kusabi: { name: "Kusabi", header: "pzprv3", fields: fields },
 			loopsp: { name: "Loop Special", header: "pzprv3", fields: fields },
 			ichimaga: { name: "Ichimaga", header: "pzprv3", fields: fields },

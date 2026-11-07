@@ -21,6 +21,52 @@
 			})
 		);
 		return {
+			bosanowa: {
+				name: "Bosanowa",
+				header: "pzprv3",
+				fields: fields
+					.slice(0, 3)
+					.concat([{ group: "border", property: "qsub", empty: -1 }])
+			},
+			snakepit: {
+				name: "Snake Pit",
+				header: "pzprv3",
+				fields: fields.concat([
+					{ group: "border", property: "qans" },
+					{ group: "border", property: "qsub" }
+				])
+			},
+			wafusuma: {
+				name: "Wafusuma",
+				header: "pzprv3.1",
+				fields: fields.concat([
+					{ group: "border", property: "qans" },
+					{ group: "border", property: "qsub" }
+				])
+			},
+			kakuru: { name: "Kakuru", header: "pzprv3", fields: fields },
+			numrope: { name: "Number Rope", header: "pzprv3", fields: fields },
+			sananko: { name: "San-Anko", header: "pzprv3", fields: fields },
+			keywest: {
+				name: "Key West",
+				header: "pzprv3",
+				fields: fields.concat([
+					{ group: "border", property: "line" },
+					{ group: "border", property: "qsub" }
+				])
+			},
+			magnets: {
+				name: "Magnets",
+				header: "pzprv3",
+				fields: fields
+					.slice(0, 3)
+					.concat([{ group: "excell", property: "qcmp" }])
+			},
+			sukororoom: { name: "Sukoro-room", header: "pzprv3", fields: fields },
+			arrowflow: { name: "Arrow Flow", header: "pzprv3", fields: fields },
+			simplegako: { name: "Simple Gako", header: "pzprv3", fields: fields },
+			news: { name: "NEWS", header: "pzprv3", fields: fields },
+			toichika2: { name: "Toichika 2", header: "pzprv3", fields: fields },
 			cojun: { name: "Cojun", header: "pzprv3", fields: fields },
 			kazunori: { name: "Kazunori Room", header: "pzprv3", fields: fields },
 			renban: { name: "Renban-Madoguchi", header: "pzprv3", fields: fields },

@@ -51,7 +51,7 @@ describe("Puzzle state: shared behavior", function() {
 			state.target(puzzle, h.fixture("slither"));
 		}, /Invalid Nurikabe/);
 		assert.throws(function() {
-			state.exportText(h.open("tajmahal/4/4/"));
+			state.exportText(h.open("yajirushi/4/4/"));
 		}, /not supported/);
 		return state
 			.decode(zlib.deflateSync(Buffer.from(text)).toString("base64"), true)

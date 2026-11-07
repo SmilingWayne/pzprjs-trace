@@ -196,28 +196,36 @@
 		if (!ops.length) {
 			return;
 		}
+		// A state import must not merge with adjacent player operations.
+		var disCombine = puzzle.opemgr.disCombine;
 		puzzle.opemgr.newOperation();
-		ops.forEach(function(op) {
-			if (op instanceof puzzle.klass.TrialFinalizeOperation) {
-				puzzle.opemgr.add(op);
-				op.redo();
-				puzzle.opemgr.limitTrialUndo = false;
-				puzzle.opemgr.checkexec();
-			} else if (profileOperation(op, puzzle, "SegmentOperation")) {
-				op.redo(); // SegmentList records the native operation.
-			} else if (profileOperation(op, puzzle, "BankPieceOperation")) {
-				op.redo();
-				puzzle.opemgr.add(op);
-			} else {
-				var piece = op.getPiece();
-				// As with native undo/redo, restore even an incorrect board.
-				if (op.pos !== null) {
-					piece.setdata2(op.property, op.pos, op.num, true);
+		puzzle.opemgr.disCombine = true;
+		try {
+			ops.forEach(function(op) {
+				if (op instanceof puzzle.klass.TrialFinalizeOperation) {
+					puzzle.opemgr.add(op);
+					op.redo();
+					puzzle.opemgr.limitTrialUndo = false;
+					puzzle.opemgr.checkexec();
+				} else if (profileOperation(op, puzzle, "SegmentOperation")) {
+					op.redo(); // SegmentList records the native operation.
+				} else if (profileOperation(op, puzzle, "BankPieceOperation")) {
+					op.redo();
+					puzzle.opemgr.add(op);
 				} else {
-					piece.setdata(op.property, op.num, true);
+					var piece = op.getPiece();
+					// As with native undo/redo, restore even an incorrect board.
+					if (op.pos !== null) {
+						piece.setdata2(op.property, op.pos, op.num, true);
+					} else {
+						piece.setdata(op.property, op.num, true);
+					}
 				}
-			}
-		});
+			});
+		} finally {
+			puzzle.opemgr.disCombine = disCombine;
+			puzzle.opemgr.lastope = null;
+		}
 		puzzle.redraw();
 	}
 
